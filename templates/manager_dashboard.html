@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manager Dashboard - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+Manager Oversight Portal
+{% endblock %}
+
+{% block page_description %}
+Read-only monitoring and reporting
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+        space-y-6
+    "
+>
+
+
+    <!-- ================================================= -->
+    <!-- MANAGER ACCESS -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            bg-blue-50
+            border
+            border-blue-200
+            rounded-xl
+            p-5
+        "
+    >
+
+        <h2
+            class="
+                font-bold
+                text-[#0a5282]
+            "
+        >
+            Manager Access
+        </h2>
+
+        <p
+            class="
+                text-sm
+                text-blue-800
+                mt-1
+            "
+        >
+            You can monitor equipment, environmental data,
+            maintenance requests and historical records.
+            Administrative modifications are restricted.
+        </p>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- METRICS -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-4
+            gap-5
+        "
+    >
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Buildings
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_buildings }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Equipment Units
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Faulty Equipment
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-red-600
+                    mt-2
+                "
+            >
+                {{ faulty_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Resolved Tickets
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-green-600
+                    mt-2
+                "
+            >
+                {{ resolved_count }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- SENSOR TELEMETRY -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Latest Environmental Telemetry
+        </h2>
+
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-3
+                gap-4
+            "
+        >
+
+            {% for sensor in sensor_telemetry %}
+
+            <div
+                class="
+                    border
+                    rounded-lg
+                    p-4
+                "
+            >
+
+                <p
+                    class="
+                        text-xs
+                        text-gray-500
+                    "
+                >
+                    {{ sensor.building_code }}
+                    -
+                    {{ sensor.building_name }}
+                </p>
+
+                <p
+                    class="
+                        font-bold
+                        mt-1
+                    "
+                >
+                    {{ sensor.sensor_type }}
+                </p>
+
+
+                {% if
+                    sensor.status == "Online"
+                    and sensor.reading_value is not none
+                %}
+
+                <p
+                    class="
+                        text-2xl
+                        font-bold
+                        text-[#0a5282]
+                        mt-3
+                    "
+                >
+
+                    {{ "%.1f"|format(sensor.reading_value) }}
+
+                    {% if sensor.sensor_type == "Temperature" %}
+                        °C
+                    {% elif sensor.sensor_type == "Humidity" %}
+                        %
+                    {% else %}
+                        AQI
+                    {% endif %}
+
+                </p>
+
+                {% else %}
+
+                <p
+                    class="
+                        text-red-600
+                        font-bold
+                        mt-3
+                    "
+                >
+                    {{ sensor.status }}
+                </p>
+
+                {% endif %}
+
+            </div>
+
+            {% else %}
+
+            <p class="text-gray-500">
+                No sensor data available.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- BUILDING OVERVIEW -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Building Monitoring Overview
+        </h2>
+
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                md:grid-cols-2
+                gap-4
+            "
+        >
+
+            {% for building in buildings_overview %}
+
+            <div
+                class="
+                    border
+                    rounded-lg
+                    p-5
+                "
+            >
+
+                <div
+                    class="
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:justify-between
+                        gap-3
+                    "
+                >
+
+                    <h3 class="font-bold">
+
+                        {{ building.building_code }}
+                        -
+                        {{ building.building_name }}
+
+                    </h3>
+
+
+                    <span
+                        class="
+                            text-sm
+                            bg-gray-100
+                            px-3
+                            py-1
+                            rounded
+                            w-fit
+                        "
+                    >
+                        Capacity:
+                        {{ building.capacity }}
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="
+                        mt-4
+                        grid
+                        grid-cols-2
+                        gap-3
+                    "
+                >
+
+                    <div
+                        class="
+                            bg-gray-50
+                            p-3
+                            rounded
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-500
+                            "
+                        >
+                            Equipment
+                        </p>
+
+                        <p
+                            class="
+                                font-bold
+                                text-lg
+                            "
+                        >
+                            {{ building.equipment_units }}
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            bg-red-50
+                            p-3
+                            rounded
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-xs
+                                text-red-600
+                            "
+                        >
+                            Faulty
+                        </p>
+
+                        <p
+                            class="
+                                font-bold
+                                text-lg
+                                text-red-600
+                            "
+                        >
+                            {{ building.faulty_count }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

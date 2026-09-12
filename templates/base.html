@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        http-equiv="Cache-Control"
+        content="no-store, no-cache, must-revalidate"
+    >
+
+    <meta
+        http-equiv="Pragma"
+        content="no-cache"
+    >
+
+    <title>
+        {% block title %}
+        Smart Building Monitoring System
+        {% endblock %}
+    </title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        .sidebar-logo {
+            width: 180px;
+            max-width: 100%;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 767px) {
+
+            .sidebar-logo {
+                width: 150px;
+                height: 70px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="bg-gray-100 min-h-screen">
+
+    <div class="min-h-screen flex flex-col md:flex-row">
+
+
+        <!-- ================================================= -->
+        <!-- SIDEBAR -->
+        <!-- ================================================= -->
+
+        <aside
+            class="
+                w-full
+                md:w-72
+                md:min-h-screen
+                bg-[#0a5282]
+                text-white
+                flex
+                flex-col
+                shrink-0
+            "
+        >
+
+            <!-- LOGO -->
+
+            <div
+                class="
+                    bg-white
+                    px-5
+                    py-5
+                    flex
+                    items-center
+                    justify-center
+                    border-b
+                    border-gray-200
+                "
+            >
+
+                <img
+                    src="{{ url_for('static', filename='logo.png') }}"
+                    alt="GUSTO Smart Building Monitoring System"
+                    class="sidebar-logo"
+                >
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="
+                    flex-1
+                    p-4
+                    flex
+                    flex-row
+                    md:flex-col
+                    gap-2
+                    overflow-x-auto
+                    md:overflow-x-visible
+                "
+            >
+
+                <a
+                    href="{% if role == 'Admin' %}{{ url_for('admin_dashboard') }}{% else %}{{ url_for('manager_dashboard') }}{% endif %}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-blue-900
+                        transition
+                    "
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="{{ url_for('equipment_page') }}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-blue-900
+                        transition
+                    "
+                >
+                    Equipment
+                </a>
+
+
+                <a
+                    href="{{ url_for('sensors_page') }}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-blue-900
+                        transition
+                    "
+                >
+                    Sensors
+                </a>
+
+
+                <a
+                    href="{{ url_for('maintenance_page') }}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-blue-900
+                        transition
+                    "
+                >
+                    Maintenance
+                </a>
+
+
+                <a
+                    href="{{ url_for('history_page') }}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-blue-900
+                        transition
+                    "
+                >
+                    History
+                </a>
+
+
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="
+                        whitespace-nowrap
+                        block
+                        px-4
+                        py-3
+                        rounded-lg
+                        hover:bg-red-600
+                        transition
+                        md:mt-auto
+                    "
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- ================================================= -->
+        <!-- MAIN CONTENT -->
+        <!-- ================================================= -->
+
+        <main class="flex-1 min-w-0 flex flex-col">
+
+
+            <!-- HEADER -->
+
+            <header
+                class="
+                    bg-white
+                    shadow-sm
+                    px-5
+                    sm:px-6
+                    lg:px-8
+                    py-5
+                    flex
+                    flex-col
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                    gap-3
+                "
+            >
+
+                <div>
+
+                    <h1
+                        class="
+                            text-xl
+                            sm:text-2xl
+                            font-bold
+                            text-gray-900
+                        "
+                    >
+                        {% block page_title %}
+                        Smart Building Monitoring System
+                        {% endblock %}
+                    </h1>
+
+                    <p
+                        class="
+                            text-sm
+                            text-gray-500
+                            mt-1
+                        "
+                    >
+                        {% block page_description %}
+                        Smart Building Monitoring System
+                        {% endblock %}
+                    </p>
+
+                </div>
+
+
+                <!-- USER IDENTITY -->
+
+                <div
+                    class="
+                        text-sm
+                        text-gray-600
+                        bg-gray-50
+                        border
+                        border-gray-200
+                        rounded-lg
+                        px-4
+                        py-2
+                        shrink-0
+                    "
+                >
+
+                    Logged in as
+
+                    <strong class="text-gray-900">
+                        {{ username }}
+                    </strong>
+
+                    <span class="ml-1">
+                        ({{ role }})
+                    </span>
+
+                </div>
+
+            </header>
+
+
+            <!-- FLASH MESSAGES -->
+
+            <div
+                class="
+                    px-5
+                    sm:px-6
+                    lg:px-8
+                    pt-5
+                "
+            >
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        <div class="space-y-3">
+
+                            {% for category, message in messages %}
+
+                                <div
+                                    class="
+                                        p-4
+                                        rounded-lg
+                                        border
+                                        {% if category == 'error' %}
+                                            bg-red-50
+                                            text-red-700
+                                            border-red-200
+                                        {% else %}
+                                            bg-green-50
+                                            text-green-700
+                                            border-green-200
+                                        {% endif %}
+                                    "
+                                >
+
+                                    {{ message }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </div>
+
+
+            <!-- PAGE CONTENT -->
+
+            <div class="flex-1">
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- BROWSER BACK / BF CACHE PROTECTION -->
+    <!-- ===================================================== -->
+
+    <script>
+
+        window.addEventListener(
+            "pageshow",
+            function(event) {
+
+                if (event.persisted) {
+
+                    window.location.reload();
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

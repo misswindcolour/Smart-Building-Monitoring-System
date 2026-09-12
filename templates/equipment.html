@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block title %}
+Equipment Monitoring - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+Equipment Monitoring
+{% endblock %}
+
+{% block page_description %}
+Building equipment inventory and status
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+        space-y-6
+    "
+>
+
+
+    <!-- ================================================= -->
+    <!-- FILTER -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+        "
+    >
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                md:grid-cols-3
+                gap-4
+            "
+        >
+
+            <input
+                id="searchInput"
+                type="text"
+                onkeyup="filterTable()"
+                placeholder="Search equipment..."
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                    w-full
+                "
+            >
+
+
+            <select
+                id="buildingFilter"
+                onchange="filterTable()"
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                    bg-white
+                "
+            >
+
+                <option value="">
+                    All Buildings
+                </option>
+
+                {% for building in buildings %}
+
+                <option value="{{ building.building_code }}">
+                    {{ building.building_code }}
+                    -
+                    {{ building.building_name }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <select
+                id="statusFilter"
+                onchange="filterTable()"
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                    bg-white
+                "
+            >
+
+                <option value="">
+                    All Statuses
+                </option>
+
+                <option value="Working">
+                    Working
+                </option>
+
+                <option value="Maintenance">
+                    Maintenance
+                </option>
+
+                <option value="Faulty">
+                    Faulty
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ADMIN ADD EQUIPMENT -->
+    <!-- ================================================= -->
+
+    {% if role == "Admin" %}
+
+    <div
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Register New Equipment
+        </h2>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('equipment_page') }}"
+            class="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-4
+                gap-4
+            "
+        >
+
+            <select
+                name="building_id"
+                required
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                "
+            >
+
+                <option value="">
+                    Select Building
+                </option>
+
+                {% for building in buildings %}
+
+                <option value="{{ building.id }}">
+
+                    {{ building.building_code }}
+                    -
+                    {{ building.building_name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <input
+                name="equipment_name"
+                required
+                placeholder="Equipment Name"
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                "
+            >
+
+
+            <input
+                name="equipment_type"
+                required
+                placeholder="Equipment Type"
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                "
+            >
+
+
+            <input
+                name="quantity"
+                type="number"
+                min="1"
+                required
+                placeholder="Quantity"
+                class="
+                    border
+                    rounded-lg
+                    p-3
+                "
+            >
+
+
+            <button
+                type="submit"
+                class="
+                    sm:col-span-2
+                    lg:col-span-4
+                    bg-[#0a5282]
+                    hover:bg-[#083f63]
+                    text-white
+                    font-bold
+                    py-3
+                    rounded-lg
+                "
+            >
+                Add Equipment
+            </button>
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- TABLE -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            overflow-x-auto
+        "
+    >
+
+        <table
+            id="equipmentTable"
+            class="
+                w-full
+                text-left
+                min-w-[900px]
+            "
+        >
+
+            <thead
+                class="
+                    bg-gray-50
+                    text-xs
+                    uppercase
+                "
+            >
+
+                <tr>
+
+                    <th class="p-4">
+                        Equipment
+                    </th>
+
+                    <th class="p-4">
+                        Type
+                    </th>
+
+                    <th class="p-4">
+                        Building
+                    </th>
+
+                    <th class="p-4">
+                        Quantity
+                    </th>
+
+                    <th class="p-4">
+                        Faulty
+                    </th>
+
+                    <th class="p-4">
+                        Status
+                    </th>
+
+                    {% if role == "Admin" %}
+
+                    <th class="p-4">
+                        Actions
+                    </th>
+
+                    {% endif %}
+
+                </tr>
+
+            </thead>
+
+
+            <tbody class="divide-y">
+
+                {% for item in equipment_list %}
+
+                <tr
+                    class="equipment-row hover:bg-gray-50"
+                    data-building="{{ item.building_code }}"
+                    data-status="{{ item.status }}"
+                >
+
+                    <td class="p-4 font-bold">
+                        {{ item.equipment_name }}
+                    </td>
+
+                    <td class="p-4">
+                        {{ item.equipment_type }}
+                    </td>
+
+                    <td class="p-4">
+                        {{ item.building_code }}
+                    </td>
+
+                    <td class="p-4">
+                        {{ item.quantity }}
+                    </td>
+
+                    <td
+                        class="
+                            p-4
+                            {% if item.faulty_count > 0 %}
+                                text-red-600
+                                font-bold
+                            {% endif %}
+                        "
+                    >
+                        {{ item.faulty_count }}
+                    </td>
+
+
+                    <td class="p-4">
+
+                        <span
+                            class="
+                                px-3
+                                py-1
+                                rounded-full
+                                text-xs
+                                font-bold
+
+                                {% if item.status == 'Working' %}
+                                    bg-green-100
+                                    text-green-700
+
+                                {% elif item.status == 'Maintenance' %}
+                                    bg-amber-100
+                                    text-amber-700
+
+                                {% else %}
+                                    bg-red-100
+                                    text-red-700
+                                {% endif %}
+                            "
+                        >
+                            {{ item.status }}
+                        </span>
+
+                    </td>
+
+
+                    {% if role == "Admin" %}
+
+                    <td class="p-4">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('update_equipment', equipment_id=item.id) }}"
+                            class="
+                                flex
+                                flex-wrap
+                                gap-2
+                            "
+                        >
+
+                            <input
+                                type="number"
+                                name="quantity"
+                                min="1"
+                                value="{{ item.quantity }}"
+                                class="
+                                    border
+                                    rounded
+                                    p-2
+                                    w-20
+                                "
+                            >
+
+
+                            <input
+                                type="number"
+                                name="faulty_count"
+                                min="0"
+                                max="{{ item.quantity }}"
+                                value="{{ item.faulty_count }}"
+                                class="
+                                    border
+                                    rounded
+                                    p-2
+                                    w-20
+                                "
+                            >
+
+
+                            <select
+                                name="status"
+                                class="
+                                    border
+                                    rounded
+                                    p-2
+                                "
+                            >
+
+                                <option
+                                    value="Working"
+                                    {% if item.status == "Working" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Working
+                                </option>
+
+                                <option
+                                    value="Maintenance"
+                                    {% if item.status == "Maintenance" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Maintenance
+                                </option>
+
+                                <option
+                                    value="Faulty"
+                                    {% if item.status == "Faulty" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Faulty
+                                </option>
+
+                            </select>
+
+
+                            <button
+                                type="submit"
+                                class="
+                                    bg-[#0a5282]
+                                    hover:bg-[#083f63]
+                                    text-white
+                                    px-3
+                                    py-2
+                                    rounded
+                                "
+                            >
+                                Update
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                    {% endif %}
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+function filterTable() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+    const building =
+        document
+            .getElementById("buildingFilter")
+            .value;
+
+    const status =
+        document
+            .getElementById("statusFilter")
+            .value;
+
+    const rows =
+        document.querySelectorAll(
+            ".equipment-row"
+        );
+
+
+    rows.forEach(row => {
+
+        const text =
+            row.innerText.toLowerCase();
+
+        const rowBuilding =
+            row.dataset.building;
+
+        const rowStatus =
+            row.dataset.status;
+
+
+        const matchesSearch =
+            text.includes(search);
+
+        const matchesBuilding =
+            !building ||
+            rowBuilding === building;
+
+        const matchesStatus =
+            !status ||
+            rowStatus === status;
+
+
+        row.style.display =
+            matchesSearch &&
+            matchesBuilding &&
+            matchesStatus
+                ? ""
+                : "none";
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

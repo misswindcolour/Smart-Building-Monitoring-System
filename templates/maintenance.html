@@ -1,0 +1,950 @@
+{% extends "base.html" %}
+
+{% block title %}
+Maintenance Requests - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+Maintenance & Building Requests
+{% endblock %}
+
+{% block page_description %}
+Request management and service workflow
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+        space-y-6
+    "
+>
+
+
+    <!-- ================================================= -->
+    <!-- ADMIN REQUEST FORM -->
+    <!-- ================================================= -->
+
+    {% if role == "Admin" %}
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Submit New Request
+        </h2>
+
+
+        <div
+            class="
+                mb-5
+                bg-blue-50
+                border
+                border-blue-200
+                rounded-lg
+                p-4
+            "
+        >
+
+            <p
+                class="
+                    text-sm
+                    text-blue-900
+                "
+            >
+                This request will be recorded as submitted by
+                <strong>{{ username }}</strong>
+                ({{ role }}).
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            class="space-y-5"
+        >
+
+            <div
+                class="
+                    grid
+                    grid-cols-1
+                    md:grid-cols-3
+                    gap-4
+                "
+            >
+
+                <div>
+
+                    <label
+                        class="
+                            block
+                            text-sm
+                            font-medium
+                            mb-1
+                        "
+                    >
+                        Request Type
+                    </label>
+
+                    <select
+                        name="request_type"
+                        id="requestType"
+                        onchange="toggleRequestFields()"
+                        class="
+                            w-full
+                            border
+                            rounded-lg
+                            p-3
+                        "
+                    >
+
+                        <option value="maintenance">
+                            Equipment Maintenance
+                        </option>
+
+                        <option value="building">
+                            Building Request
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="
+                            block
+                            text-sm
+                            font-medium
+                            mb-1
+                        "
+                    >
+                        Building
+                    </label>
+
+                    <select
+                        name="building_id"
+                        required
+                        class="
+                            w-full
+                            border
+                            rounded-lg
+                            p-3
+                        "
+                    >
+
+                        <option value="">
+                            Select Building
+                        </option>
+
+                        {% for building in buildings %}
+
+                        <option value="{{ building.id }}">
+
+                            {{ building.building_code }}
+                            -
+                            {{ building.building_name }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="
+                            block
+                            text-sm
+                            font-medium
+                            mb-1
+                        "
+                    >
+                        Priority
+                    </label>
+
+                    <select
+                        name="priority"
+                        class="
+                            w-full
+                            border
+                            rounded-lg
+                            p-3
+                        "
+                    >
+
+                        <option value="Normal">
+                            Normal
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                        <option value="Urgent">
+                            Urgent
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUIPMENT -->
+
+            <div id="equipmentField">
+
+                <label
+                    class="
+                        block
+                        text-sm
+                        font-medium
+                        mb-1
+                    "
+                >
+                    Equipment
+                </label>
+
+                <select
+                    name="equipment_id"
+                    class="
+                        w-full
+                        border
+                        rounded-lg
+                        p-3
+                    "
+                >
+
+                    <option value="">
+                        General Equipment Issue
+                    </option>
+
+                    {% for item in equipment_list %}
+
+                    <option value="{{ item.id }}">
+                        {{ item.equipment_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- BUILDING REQUEST TYPE -->
+
+            <div
+                id="buildingRequestField"
+                class="hidden"
+            >
+
+                <label
+                    class="
+                        block
+                        text-sm
+                        font-medium
+                        mb-1
+                    "
+                >
+                    Building Request Type
+                </label>
+
+                <input
+                    name="building_request_type"
+                    placeholder="e.g. HVAC Calibration"
+                    class="
+                        w-full
+                        border
+                        rounded-lg
+                        p-3
+                    "
+                >
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div>
+
+                <label
+                    class="
+                        block
+                        text-sm
+                        font-medium
+                        mb-1
+                    "
+                >
+                    Details
+                </label>
+
+                <textarea
+                    name="details"
+                    required
+                    rows="4"
+                    placeholder="Describe the issue or request..."
+                    class="
+                        w-full
+                        border
+                        rounded-lg
+                        p-3
+                    "
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="
+                    bg-[#0a5282]
+                    hover:bg-[#083f63]
+                    text-white
+                    font-bold
+                    px-6
+                    py-3
+                    rounded-lg
+                "
+            >
+                Submit Request
+            </button>
+
+        </form>
+
+    </section>
+
+
+    {% else %}
+
+    <!-- ================================================= -->
+    <!-- MANAGER READ ONLY NOTICE -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            bg-blue-50
+            border
+            border-blue-200
+            rounded-xl
+            p-5
+        "
+    >
+
+        <p
+            class="
+                font-bold
+                text-[#0a5282]
+            "
+        >
+            Manager Read-Only Access
+        </p>
+
+        <p
+            class="
+                text-sm
+                text-blue-800
+                mt-1
+            "
+        >
+            You are logged in as
+            <strong>{{ username }}</strong>
+            (Manager).
+
+            Managers can view maintenance requests but cannot
+            create requests or modify their status.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- MAINTENANCE REQUESTS -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Equipment Maintenance Requests
+        </h2>
+
+
+        <div class="space-y-4">
+
+            {% for item in maintenance_requests %}
+
+            <div
+                class="
+                    border
+                    rounded-xl
+                    p-5
+                "
+            >
+
+                <div
+                    class="
+                        flex
+                        flex-col
+                        lg:flex-row
+                        justify-between
+                        gap-4
+                    "
+                >
+
+                    <div class="flex-1">
+
+                        <div
+                            class="
+                                flex
+                                flex-wrap
+                                gap-2
+                                mb-2
+                            "
+                        >
+
+                            <span class="font-bold">
+                                Request #{{ item.id }}
+                            </span>
+
+
+                            <span
+                                class="
+                                    px-2
+                                    py-1
+                                    rounded
+                                    text-xs
+
+                                    {% if item.priority == 'Urgent' %}
+                                        bg-red-100
+                                        text-red-700
+
+                                    {% elif item.priority == 'High' %}
+                                        bg-amber-100
+                                        text-amber-700
+
+                                    {% else %}
+                                        bg-gray-100
+                                        text-gray-700
+                                    {% endif %}
+                                "
+                            >
+                                {{ item.priority }}
+                            </span>
+
+                        </div>
+
+
+                        <p class="font-medium">
+                            {{ item.details }}
+                        </p>
+
+
+                        <p
+                            class="
+                                text-sm
+                                text-gray-500
+                                mt-2
+                            "
+                        >
+
+                            {{ item.building_code }}
+                            -
+                            {{ item.building_name }}
+
+                            {% if item.equipment_name %}
+
+                                |
+                                {{ item.equipment_name }}
+
+                            {% endif %}
+
+                        </p>
+
+
+                        <!-- REQUESTER -->
+
+                        <p
+                            class="
+                                text-sm
+                                mt-2
+                                text-[#0a5282]
+                                font-medium
+                            "
+                        >
+                            Requested by:
+                            {{ item.requester }}
+                        </p>
+
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-400
+                                mt-1
+                            "
+                        >
+                            Submitted:
+                            {{ item.created_at }}
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span
+                            class="
+                                inline-block
+                                px-3
+                                py-2
+                                rounded-full
+                                text-sm
+                                font-bold
+
+                                {% if item.status == 'Resolved' %}
+                                    bg-green-100
+                                    text-green-700
+
+                                {% elif item.status == 'In Progress' %}
+                                    bg-blue-100
+                                    text-blue-700
+
+                                {% else %}
+                                    bg-amber-100
+                                    text-amber-700
+                                {% endif %}
+                            "
+                        >
+                            {{ item.status }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADMIN STATUS CONTROL -->
+
+                {% if role == "Admin" %}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('update_maintenance', request_id=item.id) }}"
+                    class="
+                        mt-5
+                        pt-5
+                        border-t
+                        space-y-3
+                    "
+                >
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-1
+                            md:grid-cols-2
+                            gap-3
+                        "
+                    >
+
+                        <select
+                            name="status"
+                            class="
+                                border
+                                rounded-lg
+                                p-3
+                            "
+                        >
+
+                            <option
+                                value="Pending"
+                                {% if item.status == "Pending" %}
+                                selected
+                                {% endif %}
+                            >
+                                Pending
+                            </option>
+
+                            <option
+                                value="In Progress"
+                                {% if item.status == "In Progress" %}
+                                selected
+                                {% endif %}
+                            >
+                                In Progress
+                            </option>
+
+                            <option
+                                value="Resolved"
+                                {% if item.status == "Resolved" %}
+                                selected
+                                {% endif %}
+                            >
+                                Resolved
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            name="resolution_details"
+                            placeholder="Resolution details when resolved"
+                            class="
+                                border
+                                rounded-lg
+                                p-3
+                            "
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="
+                            bg-[#0a5282]
+                            hover:bg-[#083f63]
+                            text-white
+                            px-5
+                            py-2
+                            rounded-lg
+                        "
+                    >
+                        Update Request
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+            {% else %}
+
+            <p class="text-gray-500">
+                No maintenance requests found.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- BUILDING REQUESTS -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                mb-5
+            "
+        >
+            Building Requests
+        </h2>
+
+
+        <div class="space-y-4">
+
+            {% for item in building_requests %}
+
+            <div
+                class="
+                    border
+                    rounded-xl
+                    p-5
+                "
+            >
+
+                <div
+                    class="
+                        flex
+                        flex-col
+                        lg:flex-row
+                        justify-between
+                        gap-4
+                    "
+                >
+
+                    <div>
+
+                        <p class="font-bold">
+
+                            Request #{{ item.id }}
+
+                            -
+
+                            {{ item.request_type }}
+
+                        </p>
+
+
+                        <p class="mt-2">
+                            {{ item.details }}
+                        </p>
+
+
+                        <p
+                            class="
+                                text-sm
+                                text-gray-500
+                                mt-2
+                            "
+                        >
+
+                            {{ item.building_code }}
+                            -
+                            {{ item.building_name }}
+
+                            |
+
+                            Priority:
+                            {{ item.priority }}
+
+                        </p>
+
+
+                        <p
+                            class="
+                                text-sm
+                                text-[#0a5282]
+                                font-medium
+                                mt-2
+                            "
+                        >
+                            Requested by:
+                            {{ item.requester }}
+                        </p>
+
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-400
+                            "
+                        >
+                            Submitted:
+                            {{ item.created_at }}
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="
+                            px-3
+                            py-2
+                            rounded-full
+                            h-fit
+                            text-sm
+                            font-bold
+                            w-fit
+
+                            {% if item.status == 'Resolved' %}
+                                bg-green-100
+                                text-green-700
+
+                            {% elif item.status == 'In Progress' %}
+                                bg-blue-100
+                                text-blue-700
+
+                            {% else %}
+                                bg-amber-100
+                                text-amber-700
+                            {% endif %}
+                        "
+                    >
+                        {{ item.status }}
+                    </span>
+
+                </div>
+
+
+                {% if role == "Admin" %}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('update_building_request', request_id=item.id) }}"
+                    class="
+                        mt-4
+                        pt-4
+                        border-t
+                        flex
+                        flex-col
+                        sm:flex-row
+                        gap-3
+                    "
+                >
+
+                    <select
+                        name="status"
+                        class="
+                            border
+                            rounded-lg
+                            p-3
+                        "
+                    >
+
+                        <option
+                            value="Pending"
+                            {% if item.status == "Pending" %}
+                            selected
+                            {% endif %}
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="In Progress"
+                            {% if item.status == "In Progress" %}
+                            selected
+                            {% endif %}
+                        >
+                            In Progress
+                        </option>
+
+                        <option
+                            value="Resolved"
+                            {% if item.status == "Resolved" %}
+                            selected
+                            {% endif %}
+                        >
+                            Resolved
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        type="submit"
+                        class="
+                            bg-[#0a5282]
+                            hover:bg-[#083f63]
+                            text-white
+                            px-5
+                            py-3
+                            rounded-lg
+                        "
+                    >
+                        Update
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+            {% else %}
+
+            <p class="text-gray-500">
+                No building requests found.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+function toggleRequestFields() {
+
+    const type =
+        document
+            .getElementById("requestType")
+            .value;
+
+    const equipment =
+        document
+            .getElementById("equipmentField");
+
+    const building =
+        document
+            .getElementById("buildingRequestField");
+
+
+    if (type === "building") {
+
+        equipment.classList.add("hidden");
+
+        building.classList.remove("hidden");
+
+    } else {
+
+        equipment.classList.remove("hidden");
+
+        building.classList.add("hidden");
+
+    }
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    toggleRequestFields
+);
+
+</script>
+
+{% endblock %}

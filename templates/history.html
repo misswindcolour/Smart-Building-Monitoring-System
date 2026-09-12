@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}
+Maintenance History - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+Historical Maintenance Records
+{% endblock %}
+
+{% block page_description %}
+Previous maintenance activities and resolutions
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+    "
+>
+
+    <div
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            overflow-x-auto
+        "
+    >
+
+        <table
+            class="
+                w-full
+                text-left
+                min-w-[1000px]
+            "
+        >
+
+            <thead
+                class="
+                    bg-gray-50
+                    text-xs
+                    uppercase
+                "
+            >
+
+                <tr>
+
+                    <th class="p-4">
+                        Request
+                    </th>
+
+                    <th class="p-4">
+                        Building
+                    </th>
+
+                    <th class="p-4">
+                        Issue
+                    </th>
+
+                    <th class="p-4">
+                        Requested By
+                    </th>
+
+                    <th class="p-4">
+                        Resolved By
+                    </th>
+
+                    <th class="p-4">
+                        Resolution
+                    </th>
+
+                    <th class="p-4">
+                        Resolution Date
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody class="divide-y">
+
+                {% for item in history_logs %}
+
+                <tr class="hover:bg-gray-50">
+
+                    <td class="p-4 font-bold">
+                        #{{ item.original_request_id }}
+                    </td>
+
+
+                    <td class="p-4">
+
+                        {{ item.building_code }}
+
+                        -
+
+                        {{ item.building_name }}
+
+                    </td>
+
+
+                    <td class="p-4">
+
+                        {{ item.issue_details }}
+
+                        {% if item.equipment_name %}
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-500
+                                mt-1
+                            "
+                        >
+                            Equipment:
+                            {{ item.equipment_name }}
+                        </p>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td
+                        class="
+                            p-4
+                            font-medium
+                            text-[#0a5282]
+                        "
+                    >
+                        {{ item.requested_by }}
+                    </td>
+
+
+                    <td class="p-4 font-medium">
+                        {{ item.resolved_by }}
+                    </td>
+
+
+                    <td class="p-4">
+                        {{ item.resolution_details }}
+                    </td>
+
+
+                    <td
+                        class="
+                            p-4
+                            text-sm
+                        "
+                    >
+                        {{ item.resolution_date }}
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="
+                            p-8
+                            text-center
+                            text-gray-500
+                        "
+                    >
+                        No resolved maintenance records found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}
+Environmental Sensors - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+Environmental Sensor Monitoring
+{% endblock %}
+
+{% block page_description %}
+Latest temperature, humidity and air-quality readings
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+    "
+>
+
+    <div
+        class="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            xl:grid-cols-3
+            gap-6
+        "
+    >
+
+        {% for building_name, sensors in buildings_dict.items() %}
+
+        <section
+            class="
+                bg-white
+                rounded-xl
+                shadow-sm
+                p-6
+            "
+        >
+
+            <h2
+                class="
+                    text-lg
+                    font-bold
+                    border-b
+                    pb-3
+                    mb-4
+                "
+            >
+                {{ building_name }}
+            </h2>
+
+
+            <div class="space-y-4">
+
+                {% for sensor in sensors %}
+
+                <div
+                    class="
+                        border
+                        rounded-lg
+                        p-4
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+                            flex-col
+                            sm:flex-row
+                            sm:justify-between
+                            gap-3
+                        "
+                    >
+
+                        <div>
+
+                            <p class="font-bold">
+                                {{ sensor.sensor_type }}
+                            </p>
+
+                            <p
+                                class="
+                                    text-xs
+                                    text-gray-500
+                                "
+                            >
+                                Sensor #{{ sensor.sensor_id }}
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="
+                                text-xs
+                                px-2
+                                py-1
+                                rounded-full
+                                w-fit
+
+                                {% if sensor.status == 'Online' %}
+                                    bg-green-100
+                                    text-green-700
+
+                                {% elif sensor.status == 'Maintenance' %}
+                                    bg-amber-100
+                                    text-amber-700
+
+                                {% else %}
+                                    bg-red-100
+                                    text-red-700
+                                {% endif %}
+                            "
+                        >
+                            {{ sensor.status }}
+                        </span>
+
+                    </div>
+
+
+                    {% if
+                        sensor.status == "Online"
+                        and sensor.reading_value is not none
+                    %}
+
+                    <p
+                        class="
+                            text-3xl
+                            font-bold
+                            text-[#0a5282]
+                            mt-4
+                        "
+                    >
+
+                        {{ "%.1f"|format(sensor.reading_value) }}
+
+                        {% if sensor.sensor_type == "Temperature" %}
+                            °C
+                        {% elif sensor.sensor_type == "Humidity" %}
+                            %
+                        {% else %}
+                            AQI
+                        {% endif %}
+
+                    </p>
+
+
+                    <p
+                        class="
+                            text-xs
+                            text-gray-400
+                            mt-2
+                        "
+                    >
+                        Latest recorded reading:
+                        {{ sensor.timestamp }}
+                    </p>
+
+
+                    {% else %}
+
+                    <p
+                        class="
+                            text-red-600
+                            font-bold
+                            mt-4
+                        "
+                    >
+                        No live reading available
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <p
+                class="
+                    text-xs
+                    text-gray-400
+                    mt-5
+                "
+            >
+                Prototype telemetry feed
+            </p>
+
+        </section>
+
+        {% else %}
+
+        <div
+            class="
+                bg-white
+                rounded-xl
+                shadow-sm
+                p-8
+                text-center
+                text-gray-500
+            "
+        >
+            No environmental sensor data available.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

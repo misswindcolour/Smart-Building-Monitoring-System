@@ -1,0 +1,586 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+System Control Center
+{% endblock %}
+
+{% block page_description %}
+Smart Building Monitoring System
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="
+        p-5
+        sm:p-6
+        lg:p-8
+        space-y-6
+    "
+>
+
+
+    <!-- ================================================= -->
+    <!-- METRICS -->
+    <!-- ================================================= -->
+
+    <div
+        class="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-4
+            gap-5
+        "
+    >
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Buildings
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-[#0a5282]
+                    mt-2
+                "
+            >
+                {{ total_buildings }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Equipment Units
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-gray-800
+                    mt-2
+                "
+            >
+                {{ total_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Faulty Units
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-red-600
+                    mt-2
+                "
+            >
+                {{ faulty_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Active Maintenance
+            </p>
+
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-amber-600
+                    mt-2
+                "
+            >
+                {{ pending_requests }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- EQUIPMENT ALERTS -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <div
+            class="
+                flex
+                flex-col
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+                gap-3
+                mb-5
+            "
+        >
+
+            <h2
+                class="
+                    text-lg
+                    font-bold
+                    text-gray-800
+                "
+            >
+                Active Equipment Alerts
+            </h2>
+
+
+            <a
+                href="{{ url_for('equipment_page') }}"
+                class="
+                    text-sm
+                    text-[#0a5282]
+                    hover:underline
+                "
+            >
+                View Equipment
+            </a>
+
+        </div>
+
+
+        <div class="space-y-3">
+
+            {% for alert in alerts %}
+
+            <div
+                class="
+                    border
+                    border-red-200
+                    bg-red-50
+                    rounded-lg
+                    p-4
+                    flex
+                    flex-col
+                    sm:flex-row
+                    justify-between
+                    gap-3
+                "
+            >
+
+                <div>
+
+                    <p
+                        class="
+                            font-bold
+                            text-red-900
+                        "
+                    >
+                        {{ alert.equipment_name }}
+                    </p>
+
+                    <p
+                        class="
+                            text-sm
+                            text-red-700
+                        "
+                    >
+                        {{ alert.building_code }}
+                        -
+                        {{ alert.building_name }}
+                    </p>
+
+                    <p
+                        class="
+                            text-sm
+                            text-red-700
+                            mt-1
+                        "
+                    >
+                        Status:
+                        {{ alert.status }}
+
+                        |
+
+                        Faulty:
+                        {{ alert.faulty_count }}
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('equipment_page') }}"
+                    class="
+                        self-start
+                        bg-[#0a5282]
+                        hover:bg-[#083f63]
+                        text-white
+                        px-4
+                        py-2
+                        rounded-lg
+                        text-sm
+                    "
+                >
+                    Manage
+                </a>
+
+            </div>
+
+            {% else %}
+
+            <p class="text-gray-500">
+                No active equipment alerts.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- BUILDING OVERVIEW -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <h2
+            class="
+                text-lg
+                font-bold
+                text-gray-800
+                mb-5
+            "
+        >
+            Building Overview
+        </h2>
+
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                md:grid-cols-2
+                gap-4
+            "
+        >
+
+            {% for building in buildings_overview %}
+
+            <div
+                class="
+                    border
+                    rounded-lg
+                    p-5
+                "
+            >
+
+                <div
+                    class="
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:justify-between
+                        gap-3
+                    "
+                >
+
+                    <div>
+
+                        <h3
+                            class="
+                                font-bold
+                                text-gray-800
+                            "
+                        >
+                            {{ building.building_code }}
+                        </h3>
+
+                        <p
+                            class="
+                                text-sm
+                                text-gray-500
+                            "
+                        >
+                            {{ building.building_name }}
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="
+                            text-sm
+                            bg-gray-100
+                            px-3
+                            py-1
+                            rounded
+                            h-fit
+                            w-fit
+                        "
+                    >
+                        Capacity:
+                        {{ building.capacity }}
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="
+                        mt-4
+                        grid
+                        grid-cols-1
+                        sm:grid-cols-2
+                        gap-3
+                    "
+                >
+
+                    <div
+                        class="
+                            bg-gray-50
+                            p-3
+                            rounded
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-500
+                            "
+                        >
+                            Equipment Units
+                        </p>
+
+                        <p
+                            class="
+                                font-bold
+                                text-lg
+                            "
+                        >
+                            {{ building.equipment_units }}
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            bg-red-50
+                            p-3
+                            rounded
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-xs
+                                text-red-600
+                            "
+                        >
+                            Faulty Units
+                        </p>
+
+                        <p
+                            class="
+                                font-bold
+                                text-lg
+                                text-red-600
+                            "
+                        >
+                            {{ building.faulty_count }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- RECENT REQUESTS -->
+    <!-- ================================================= -->
+
+    <section
+        class="
+            bg-white
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <div
+            class="
+                flex
+                flex-col
+                sm:flex-row
+                sm:justify-between
+                gap-3
+                mb-5
+            "
+        >
+
+            <h2 class="text-lg font-bold">
+                Recent Maintenance Requests
+            </h2>
+
+            <a
+                href="{{ url_for('maintenance_page') }}"
+                class="
+                    text-sm
+                    text-[#0a5282]
+                    hover:underline
+                "
+            >
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left min-w-[650px]">
+
+                <thead
+                    class="
+                        text-xs
+                        uppercase
+                        bg-gray-50
+                    "
+                >
+
+                    <tr>
+
+                        <th class="p-3">
+                            Request
+                        </th>
+
+                        <th class="p-3">
+                            Requested By
+                        </th>
+
+                        <th class="p-3">
+                            Building
+                        </th>
+
+                        <th class="p-3">
+                            Priority
+                        </th>
+
+                        <th class="p-3">
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody class="divide-y">
+
+                    {% for item in recent_requests %}
+
+                    <tr>
+
+                        <td class="p-3">
+                            {{ item.details }}
+                        </td>
+
+                        <td
+                            class="
+                                p-3
+                                font-medium
+                                text-[#0a5282]
+                            "
+                        >
+                            {{ item.requester }}
+                        </td>
+
+                        <td class="p-3">
+                            {{ item.building_code }}
+                        </td>
+
+                        <td class="p-3">
+                            {{ item.priority }}
+                        </td>
+
+                        <td class="p-3">
+                            {{ item.status }}
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="
+                                p-6
+                                text-center
+                                text-gray-500
+                            "
+                        >
+                            No maintenance requests found.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
