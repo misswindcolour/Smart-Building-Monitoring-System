@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.vscode/
+*.pem
+
+# Local testing / migration scripts
+test_aiven.py
+update_passwords.py
+migrate_phase_a_c.py

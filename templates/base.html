@@ -26,6 +26,7 @@
         {% endblock %}
     </title>
 
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -44,6 +45,9 @@
                 Arial,
                 Helvetica,
                 sans-serif;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
         }
 
         .sidebar-logo {
@@ -62,233 +66,761 @@
 
         }
 
+
+        /* Dark mode only. Light mode styles remain unchanged. */
+        html.dark,
+        html.dark body,
+        html.dark main,
+        html.dark .flex-1 {
+            background-color: #000000 !important;
+        }
+
+        html.dark .sidebar-nav,
+        html.dark .sidebar-logo-area,
+        html.dark header,
+        html.dark section,
+        html.dark .bg-white,
+        html.dark .dark\:bg-gray-900,
+        html.dark .dark\:bg-gray-800,
+        html.dark .dark\:bg-gray-700 {
+            background-color: #0b2333 !important;
+        }
+
+        html.dark .sidebar-logo-area {
+            border-color: #29465a !important;
+        }
+
+        html.dark .sidebar-nav a {
+            border-bottom: 1px solid #29465a !important;
+        }
+
+        html.dark .sidebar-nav a:hover,
+        html.dark .sidebar-nav a.active {
+            border-bottom-color: #4f7187 !important;
+        }
+
+        html.dark .text-gray-900,
+        html.dark .text-gray-800,
+        html.dark .text-gray-700,
+        html.dark .text-gray-600,
+        html.dark .text-gray-500,
+        html.dark .text-gray-400,
+        html.dark .dark\:text-white,
+        html.dark .dark\:text-gray-100,
+        html.dark .dark\:text-gray-200,
+        html.dark .dark\:text-gray-300,
+        html.dark .dark\:text-gray-400 {
+            color: #f3f4f6 !important;
+        }
+
+        html.dark input,
+        html.dark select,
+        html.dark textarea {
+            background-color: #102f43 !important;
+            color: #f9fafb !important;
+            border-color: #3b5b70 !important;
+        }
+
+        html.dark table,
+        html.dark th,
+        html.dark td {
+            color: #f3f4f6;
+        }
+
+        html.dark .border-gray-200,
+        html.dark .border-gray-300,
+        html.dark .dark\:border-gray-700 {
+            border-color: #3b5b70 !important;
+        }
+
+        /* Keep the logo area and top navigation visually aligned. */
+        .sidebar-logo-area {
+            background-color: #ffffff !important;
+            min-height: 104px;
+            height: 104px;
+        }
+
+        header {
+            min-height: 104px;
+        }
+
+        .sidebar-logo {
+            width: 180px;
+            height: 64px;
+        }
+
+        .sidebar-nav {
+            background-color: #0a5282;
+        }
+
+        /* Dark-mode dashboard cards */
+        html.dark .bg-gray-50,
+        html.dark .bg-gray-100 {
+            background-color: #16394d !important;
+        }
+
+        html.dark .bg-red-50 {
+            background-color: #5b2028 !important;
+            border-color: #8f3b45 !important;
+        }
+
+        html.dark .bg-red-100 {
+            background-color: #6f2730 !important;
+        }
+
+        html.dark .bg-amber-50 {
+            background-color: #5a461f !important;
+        }
+
+        html.dark .bg-blue-50 {
+            background-color: #214b66 !important;
+        }
+
+        html.dark .bg-green-50 {
+            background-color: #173f32 !important;
+        }
+
+        /* Account label */
+        html.dark .logged-in-account {
+            color: #111827 !important;
+            background-color: #dbe7ee !important;
+        }
+
+        html.dark .logged-in-account strong {
+            color: #111827 !important;
+        }
+
+/* =====================================================
+   SIDEBAR NAVIGATION HOVER
+   ===================================================== */
+
+.sidebar-nav a {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a:focus-visible {
+    background-color: #083f63 !important;
+}
+
+        /* Dark mode status and alert text */
+        html.dark .text-red-600,
+        html.dark .text-red-700,
+        html.dark .text-red-800,
+        html.dark .text-red-900 {
+            color: #ffb4b4 !important;
+        }
+
+        html.dark .text-amber-600,
+        html.dark .text-amber-700,
+        html.dark .text-yellow-700 {
+            color: #ffd580 !important;
+        }
+
+        html.dark .text-green-600,
+        html.dark .text-green-700,
+        html.dark .text-green-800 {
+            color: #9ce8bd !important;
+        }
+
+        html.dark a.text-[#0a5282],
+        html.dark a.text-blue-600,
+        html.dark a.text-blue-700 {
+            color: #9edbff !important;
+        }
+
+        html.dark .active-equipment-alert,
+        html.dark .active-equipment-alert * {
+            color: #ffecec !important;
+        }
+
+        html.dark .active-equipment-alert .equipment-name {
+            color: #ffffff !important;
+        }
+
+/* =====================================================
+   CUSTOM LINK AND STATUS COLOURS
+   ===================================================== */
+
+/* Dashboard navigation links */
+.dashboard-action-link {
+    color: #71b2de !important;
+}
+
+/* Manage buttons */
+.manage-button {
+    color: #ffffff !important;
+}
+
+/* Equipment Working status - light mode */
+.working-status {
+    color: #166534 !important;
+}
+
+/* =====================================================
+   MOBILE NAVIGATION DROPDOWN - GUSTO COLOUR
+   ===================================================== */
+
+.mobile-navigation-dropdown {
+    background-color: #0a5282 !important;
+}
+
+.mobile-navigation-dropdown .mobile-nav-link {
+    color: #ffffff !important;
+}
+
+.mobile-navigation-dropdown .mobile-nav-link:hover,
+.mobile-navigation-dropdown .mobile-nav-link:focus-visible {
+    background-color: #083f63 !important;
+}
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+/* Equipment Working status - dark mode */
+html.dark .working-status {
+    color: #166534 !important;
+}
+
+/* Sensor status text - dark mode */
+html.dark .sensor-status-text {
+    color: #111827 !important;
+}
+
+/* Sensor Maintenance status - dark mode */
+html.dark .sensor-maintenance-status {
+    color: #111827 !important;
+}
+
+/* Dashboard action links stay the same colour in dark mode */
+html.dark .dashboard-action-link {
+    color: #71b2de !important;
+}
+        /* =====================================================
+           CUSTOM STATUS / LINK COLOURS
+           ===================================================== */
+
+        /* View Sensors */
+        .view-sensors-link {
+            color: #71b2de !important;
+        }
+
+        .view-sensors-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Working status */
+        .working-status {
+            color: #166534 !important;
+        }
+
+        /* Keep Working readable in dark mode */
+        html.dark .working-status {
+            color: #9ce8bd !important;
+        }
+
+        /* =====================================================
+   SENSOR STATUS TEXT - DARK MODE
+   ===================================================== */
+
+/* Keep existing light-mode colours unchanged */
+
+/* Make all sensor status text dark in dark mode */
+html.dark .sensor-status-dark {
+    color: #111827 !important;
+}
+
     </style>
+
+    <script>
+
+        tailwind.config = {
+            darkMode: "class"
+        };
+
+        function applyDarkMode() {
+
+            const enabled =
+                localStorage.getItem(
+                    "smartBuildingDarkMode"
+                ) === "true";
+
+            document.documentElement.classList.toggle(
+                "dark",
+                enabled
+            );
+        }
+
+        applyDarkMode();
+
+    </script>
 
 </head>
 
 
-<body class="bg-gray-100 min-h-screen">
+<body
+    class="
+        bg-gray-100
+        dark:bg-gray-950
+        text-gray-900
+        dark:text-gray-100
+        min-h-screen
+    "
+>
 
-    <div class="min-h-screen flex flex-col md:flex-row">
+<div class="min-h-screen flex flex-col md:flex-row">
 
 
-        <!-- ================================================= -->
-        <!-- SIDEBAR -->
-        <!-- ================================================= -->
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
-        <aside
-            class="
-                w-full
-                md:w-72
-                md:min-h-screen
-                bg-[#0a5282]
-                text-white
+    <aside
+        class="sidebar-nav
+        hidden
+        lg:flex
+            w-full
+            md:w-72
+            md:min-h-screen
+            bg-[#0a5282]
+            text-white
+            flex
+            flex-col
+            shrink-0
+        "
+    >
+
+        <div
+            class="sidebar-logo-area
+                bg-white
+                px-5
+                py-5
                 flex
-                flex-col
-                shrink-0
+                items-center
+                justify-center
+                border-b
+                border-gray-200
             "
         >
 
-            <!-- LOGO -->
+            <img
+                id="sidebarLogo"
+                src="{{ url_for('static', filename='logo.png') }}"
+                data-light-logo="{{ url_for('static', filename='logo.png') }}"
+                data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}"
+                alt="GUSTO Smart Building Monitoring System"
+                class="sidebar-logo"
+            >
 
-            <div
+        </div>
+
+
+        <nav
+            class="
+                flex-1
+                p-4
+                flex
+                flex-row
+                md:flex-col
+                gap-2
+                overflow-x-auto
+                md:overflow-x-visible
+            "
+        >
+
+            <a
+                href="
+                {% if role == 'Manager' %}
+                    {{ url_for('manager_dashboard') }}
+                {% else %}
+                    {{ url_for('user_dashboard') }}
+                {% endif %}
+                "
                 class="
-                    bg-white
-                    px-5
-                    py-5
-                    flex
-                    items-center
-                    justify-center
-                    border-b
-                    border-gray-200
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-blue-900
+                    transition
+                "
+            >
+                <span data-nav-key="dashboard">Dashboard</span>
+            </a>
+
+
+            <a
+                href="{{ url_for('equipment_page') }}"
+                class="
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-blue-900
+                    transition
+                "
+            >
+                <span data-nav-key="equipment">Equipment</span>
+            </a>
+
+
+            <a
+                href="{{ url_for('sensors_page') }}"
+                class="
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-blue-900
+                    transition
+                "
+            >
+                <span data-nav-key="sensors">Sensors</span>
+            </a>
+
+
+            <a
+                href="{{ url_for('maintenance_page') }}"
+                class="
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-blue-900
+                    transition
+                "
+            >
+                <span data-nav-key="maintenance">Maintenance</span>
+            </a>
+
+
+            <a
+                href="{{ url_for('history_page') }}"
+                class="
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-blue-900
+                    transition
+                "
+            >
+                <span data-nav-key="history">History</span>
+            </a>
+
+
+
+
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="
+                    whitespace-nowrap
+                    block
+                    px-4
+                    py-3
+                    rounded-lg
+                    hover:bg-red-600
+                    transition
+                    md:mt-auto
+                "
+            >
+                <span data-nav-key="logout">Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+<!-- =====================================================
+     RESPONSIVE MOBILE/TABLET TOP NAVIGATION
+     MENU + LOGO LEFT | ACCOUNT RIGHT
+     ===================================================== -->
+
+<div
+    class="
+        lg:hidden
+        relative
+        flex
+        items-center
+        justify-between
+        gap-3
+        px-3
+        sm:px-6
+        py-4
+        bg-white
+        dark:bg-gray-900
+        border-b
+        border-gray-200
+        dark:border-gray-700
+    "
+>
+
+    <!-- =================================================
+         LEFT: MENU + GUSTO LOGO
+         ================================================= -->
+
+    <div class="flex items-center gap-3 min-w-0">
+
+        <!-- Menu button -->
+        <button
+            type="button"
+            id="mobileMenuButton"
+            onclick="toggleMobileNavigation()"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            class="
+                flex
+                items-center
+                justify-center
+                shrink-0
+                text-gray-700
+                dark:text-gray-200
+                hover:text-[#0a5282]
+                dark:hover:text-blue-300
+                transition
+            "
+        >
+
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="4" y1="6" x2="20" y2="6"></line>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+
+        </button>
+
+
+        <!-- GUSTO logo -->
+        <div class="flex items-center min-w-0">
+
+            <img
+                id="mobileLogo"
+                src="{{ url_for('static', filename='logo.png') }}"
+                data-light-logo="{{ url_for('static', filename='logo.png') }}"
+                data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}"
+                alt="GUSTO Smart Building Monitoring System"
+                class="
+                    w-28
+                    sm:w-40
+                    h-auto
+                    max-h-14
+                    object-contain
                 "
             >
 
-                <img
-                    src="{{ url_for('static', filename='logo.png') }}"
-                    alt="GUSTO Smart Building Monitoring System"
-                    class="sidebar-logo"
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         RIGHT: LOGGED-IN ACCOUNT
+         ================================================= -->
+
+    <div class="flex items-center justify-end min-w-0">
+
+        <div
+            class="
+                logged-in-account
+                text-[10px]
+                sm:text-sm
+                text-gray-600
+                bg-gray-50
+                border
+                border-gray-200
+                rounded-lg
+                px-2
+                sm:px-4
+                py-2
+                text-right
+                whitespace-nowrap
+            "
+        >
+
+            <span>Logged in as</span>
+
+            <strong class="text-gray-900 ml-1">
+                {{ username }}
+            </strong>
+
+            <span class="ml-1">
+                ({{ role }})
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MOBILE NAVIGATION DROPDOWN
+         ================================================= -->
+
+    <div
+        id="mobileNavigationDropdown"
+        class="
+            hidden
+            absolute
+            top-full
+            left-3
+            right-3
+            sm:left-6
+            sm:right-6
+            z-50
+            mobile-navigation-dropdown
+            border
+            border-[#083f63]
+            rounded-lg
+            shadow-lg
+            overflow-hidden
+        "
+    >
+
+        <nav class="flex flex-col py-2">
+
+            <a
+                href="{% if role == 'Manager' %}{{ url_for('manager_dashboard') }}{% else %}{{ url_for('user_dashboard') }}{% endif %}"
+                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('equipment_page') }}"
+                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+            >
+                Equipment
+            </a>
+
+            <a
+                href="{{ url_for('sensors_page') }}"
+                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+            >
+                Sensors
+            </a>
+
+            <a
+                href="{{ url_for('maintenance_page') }}"
+                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+            >
+                Maintenance
+            </a>
+
+            <a
+                href="{{ url_for('history_page') }}"
+                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+            >
+                History
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="
+                    mobile-nav-link
+                    px-4
+                    py-3
+                    text-sm
+                    text-red-200
+                    hover:bg-red-700
+                    transition
+                "
+            >
+                Logout
+            </a>
+
+        </nav>
+
+    </div>
+
+</div>
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main
+        class="
+            flex-1
+            min-w-0
+            flex
+            flex-col
+        "
+    >
+
+        <header
+            class="
+                bg-white
+                dark:bg-gray-900
+                shadow-sm
+                px-5
+                sm:px-6
+                lg:px-8
+                py-5
+                flex
+                flex-col
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+                gap-3
+            "
+        >
+
+            <div>
+
+                <h1
+                    class="
+                        text-xl
+                        sm:text-2xl
+                        font-bold
+                        text-gray-900
+                        dark:text-white
+                    "
                 >
+                    {% block page_title %}
+                    Smart Building Monitoring System
+                    {% endblock %}
+                </h1>
+
+                <p
+                    class="
+                        text-sm
+                        text-gray-500
+                        dark:text-gray-400
+                        mt-1
+                    "
+                >
+                    {% block page_description %}
+                    Smart Building Monitoring System
+                    {% endblock %}
+                </p>
 
             </div>
 
 
-            <!-- NAVIGATION -->
-
-            <nav
-                class="
-                    flex-1
-                    p-4
-                    flex
-                    flex-row
-                    md:flex-col
-                    gap-2
-                    overflow-x-auto
-                    md:overflow-x-visible
-                "
-            >
-
-                <a
-                    href="{% if role == 'Admin' %}{{ url_for('admin_dashboard') }}{% else %}{{ url_for('manager_dashboard') }}{% endif %}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-blue-900
-                        transition
-                    "
-                >
-                    Dashboard
-                </a>
-
-
-                <a
-                    href="{{ url_for('equipment_page') }}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-blue-900
-                        transition
-                    "
-                >
-                    Equipment
-                </a>
-
-
-                <a
-                    href="{{ url_for('sensors_page') }}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-blue-900
-                        transition
-                    "
-                >
-                    Sensors
-                </a>
-
-
-                <a
-                    href="{{ url_for('maintenance_page') }}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-blue-900
-                        transition
-                    "
-                >
-                    Maintenance
-                </a>
-
-
-                <a
-                    href="{{ url_for('history_page') }}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-blue-900
-                        transition
-                    "
-                >
-                    History
-                </a>
-
-
-                <a
-                    href="{{ url_for('logout') }}"
-                    class="
-                        whitespace-nowrap
-                        block
-                        px-4
-                        py-3
-                        rounded-lg
-                        hover:bg-red-600
-                        transition
-                        md:mt-auto
-                    "
-                >
-                    Logout
-                </a>
-
-            </nav>
-
-        </aside>
-
-
-        <!-- ================================================= -->
-        <!-- MAIN CONTENT -->
-        <!-- ================================================= -->
-
-        <main class="flex-1 min-w-0 flex flex-col">
-
-
-            <!-- HEADER -->
-
-            <header
-                class="
-                    bg-white
-                    shadow-sm
-                    px-5
-                    sm:px-6
-                    lg:px-8
-                    py-5
-                    flex
-                    flex-col
-                    sm:flex-row
-                    sm:items-center
-                    sm:justify-between
-                    gap-3
-                "
-            >
-
-                <div>
-
-                    <h1
-                        class="
-                            text-xl
-                            sm:text-2xl
-                            font-bold
-                            text-gray-900
-                        "
-                    >
-                        {% block page_title %}
-                        Smart Building Monitoring System
-                        {% endblock %}
-                    </h1>
-
-                    <p
-                        class="
-                            text-sm
-                            text-gray-500
-                            mt-1
-                        "
-                    >
-                        {% block page_description %}
-                        Smart Building Monitoring System
-                        {% endblock %}
-                    </p>
-
-                </div>
-
-
-                <!-- USER IDENTITY -->
+            <div class="flex flex-wrap items-center justify-end gap-2 shrink-0">
 
                 <div
                     class="
+                        logged-in-account
+                        hidden
+                        lg:flex
                         text-sm
                         text-gray-600
                         bg-gray-50
@@ -297,115 +829,720 @@
                         rounded-lg
                         px-4
                         py-2
-                        shrink-0
                     "
                 >
+                    <span>Logged in as</span>
 
-                    Logged in as
-
-                    <strong class="text-gray-900">
-                        {{ username }}
-                    </strong>
+<strong class="text-gray-900 ml-1">
+    {{ username }}
+</strong>
 
                     <span class="ml-1">
                         ({{ role }})
                     </span>
-
                 </div>
 
-            </header>
+
+                <button
+                    type="button"
+                    onclick="toggleDarkMode()"
+                    class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-lg
+                        border
+                        border-gray-300
+                        bg-white
+                        px-3
+                        py-2
+                        text-sm
+                        font-semibold
+                        text-gray-700
+                        hover:bg-gray-100
+                        transition
+                    "
+                    aria-label="Toggle light and dark mode"
+                >
+
+                    <svg
+                        id="themeIcon"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    ></svg>
+
+                    <span id="headerDarkModeText">
+                        Dark Mode
+                    </span>
+
+                </button>
 
 
-            <!-- FLASH MESSAGES -->
+                <label
+                    class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-lg
+                        border
+                        border-gray-300
+                        bg-white
+                        px-3
+                        py-2
+                        text-sm
+                        font-semibold
+                        text-gray-700
+                    "
+                >
 
-            <div
-                class="
-                    px-5
-                    sm:px-6
-                    lg:px-8
-                    pt-5
-                "
-            >
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18"></path>
+                        <path d="M12 3a14 14 0 0 1 0 18"></path>
+                        <path d="M12 3a14 14 0 0 0 0 18"></path>
+                    </svg>
 
-                {% with messages = get_flashed_messages(with_categories=true) %}
+                    <select
+                        id="languageSelector"
+                        onchange="changeLanguage(this.value)"
+                        class="
+                            border-0
+                            bg-transparent
+                            p-0
+                            text-sm
+                            font-semibold
+                            text-gray-700
+                            focus:ring-0
+                        "
+                    >
+                        <option value="en">English</option>
+                        <option value="my">မြန်မာ</option>
+                        <option value="it">Italiano</option>
+                    </select>
 
-                    {% if messages %}
-
-                        <div class="space-y-3">
-
-                            {% for category, message in messages %}
-
-                                <div
-                                    class="
-                                        p-4
-                                        rounded-lg
-                                        border
-                                        {% if category == 'error' %}
-                                            bg-red-50
-                                            text-red-700
-                                            border-red-200
-                                        {% else %}
-                                            bg-green-50
-                                            text-green-700
-                                            border-green-200
-                                        {% endif %}
-                                    "
-                                >
-
-                                    {{ message }}
-
-                                </div>
-
-                            {% endfor %}
-
-                        </div>
-
-                    {% endif %}
-
-                {% endwith %}
+                </label>
 
             </div>
 
-
-            <!-- PAGE CONTENT -->
-
-            <div class="flex-1">
-
-                {% block content %}
-                {% endblock %}
-
-            </div>
-
-        </main>
-
-    </div>
+        </header>
 
 
-    <!-- ===================================================== -->
-    <!-- BROWSER BACK / BF CACHE PROTECTION -->
-    <!-- ===================================================== -->
+        <!-- FLASH MESSAGES -->
 
-    <script>
+        <div
+            class="
+                px-5
+                sm:px-6
+                lg:px-8
+                pt-5
+            "
+        >
 
-        window.addEventListener(
-            "pageshow",
-            function(event) {
+            {% with
+                messages =
+                get_flashed_messages(
+                    with_categories=true
+                )
+            %}
 
-                if (event.persisted) {
+                {% if messages %}
 
-                    window.location.reload();
+                    <div class="space-y-3">
 
-                }
+                        {% for category, message in messages %}
 
-            }
+                            <div
+                                class="
+                                    p-4
+                                    rounded-lg
+                                    border
+                                    {% if category == 'error' %}
+                                        bg-red-50
+                                        text-red-700
+                                        border-red-200
+                                    {% else %}
+                                        bg-green-50
+                                        text-green-700
+                                        border-green-200
+                                    {% endif %}
+                                "
+                            >
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+        </div>
+
+
+        <div class="flex-1 page-background">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const contentTranslations = {
+
+    my: {
+        "Dashboard":"ဒက်ရှ်ဘုတ်",
+        "Equipment":"ပစ္စည်းကိရိယာများ",
+        "Sensors":"အာရုံခံကိရိယာများ",
+        "Maintenance":"ပြုပြင်ထိန်းသိမ်းမှု",
+        "History":"မှတ်တမ်း",
+        "Logout":"ထွက်ရန်",
+        "Dark Mode":"အမှောင်မုဒ်",
+        "Light Mode":"အလင်းမုဒ်",
+        "Active Equipment Alerts":"လက်ရှိပစ္စည်း သတိပေးချက်များ",
+        "Building Overview":"အဆောက်အအုံ အကျဉ်းချုပ်",
+        "Equipment Units":"ပစ္စည်းယူနစ်များ",
+        "Faulty Units":"ချို့ယွင်းယူနစ်များ",
+        "Capacity":"ဆံ့နိုင်မှု",
+        "Environmental Alerts":"ပတ်ဝန်းကျင် သတိပေးချက်များ",
+        "Air Quality":"လေထုအရည်အသွေး",
+        "Temperature Tracking":"အပူချိန် မှတ်တမ်း",
+        "Historical temperature readings":"အပူချိန် ဖတ်ရှုမှုမှတ်တမ်းများ",
+        "All Buildings":"အဆောက်အအုံအားလုံး",
+        "Search":"ရှာဖွေရန်",
+        "Filter":"စစ်ထုတ်ရန်",
+        "Status":"အခြေအနေ",
+        "Building":"အဆောက်အအုံ",
+        "Submit":"တင်သွင်းရန်",
+        "Save":"သိမ်းရန်",
+        "Cancel":"ပယ်ဖျက်ရန်",
+        "View":"ကြည့်ရန်",
+        "Edit":"ပြင်ဆင်ရန်",
+        "Delete":"ဖျက်ရန်",
+        "Create Request":"တောင်းဆိုချက် ဖန်တီးရန်",
+        "Maintenance Requests":"ပြုပြင်ထိန်းသိမ်းမှု တောင်းဆိုချက်များ",
+        "Maintenance History":"ပြုပြင်ထိန်းသိမ်းမှု မှတ်တမ်း",
+        "No results found":"ရလဒ်မတွေ့ပါ",
+        "View Sensors":"ဆင်ဆာများကို ကြည့်ရန်",
+        "Faulty":"ချို့ယွင်းနေသည်",
+        "Urgent":"အရေးပေါ်",
+        "Science":"သိပ္ပံ",
+        "Computing":"ကွန်ပျူတာ",
+        "Main Hall":"အဓိကခန်းမ",
+        "Library":"စာကြည့်တိုက်",
+        "Equipment Health":"ပစ္စည်းအခြေအနေ",
+        "Overview":"အကျဉ်းချုပ်",
+        "Description":"ဖော်ပြချက်",
+        "Priority":"ဦးစားပေးမှု",
+        "Actions":"လုပ်ဆောင်ချက်များ"
+    },
+
+    it: {
+        "Dashboard":"Dashboard",
+        "Equipment":"Attrezzatura",
+        "Sensors":"Sensori",
+        "Maintenance":"Manutenzione",
+        "History":"Cronologia",
+        "Logout":"Esci",
+        "Dark Mode":"Modalità scura",
+        "Light Mode":"Modalità chiara",
+        "Active Equipment Alerts":"Avvisi attivi delle apparecchiature",
+        "Building Overview":"Panoramica degli edifici",
+        "Equipment Units":"Unità apparecchiature",
+        "Faulty Units":"Unità guaste",
+        "Capacity":"Capacità",
+        "Environmental Alerts":"Avvisi ambientali",
+        "Air Quality":"Qualità dell'aria",
+        "Temperature Tracking":"Monitoraggio della temperatura",
+        "Historical temperature readings":"Letture storiche della temperatura",
+        "All Buildings":"Tutti gli edifici",
+        "Search":"Cerca",
+        "Filter":"Filtra",
+        "Status":"Stato",
+        "Building":"Edificio",
+        "Submit":"Invia",
+        "Save":"Salva",
+        "Cancel":"Annulla",
+        "View":"Visualizza",
+        "Edit":"Modifica",
+        "Delete":"Elimina",
+        "Create Request":"Crea richiesta",
+        "Maintenance Requests":"Richieste di manutenzione",
+        "Maintenance History":"Cronologia della manutenzione",
+        "No results found":"Nessun risultato trovato",
+        "View Sensors":"Visualizza sensori",
+        "Faulty":"Guasto",
+        "Urgent":"Urgente",
+        "Science":"Scienze",
+        "Computing":"Informatica",
+        "Main Hall":"Sala principale",
+        "Library":"Biblioteca",
+        "Equipment Health":"Stato delle apparecchiature",
+        "Overview":"Panoramica",
+        "Description":"Descrizione",
+        "Priority":"Priorità",
+        "Actions":"Azioni"
+    }
+
+};
+
+
+function translateContent() {
+
+    const lang =
+        localStorage.getItem("smartBuildingLanguage") || "en";
+
+    const dict =
+        contentTranslations[lang] || {};
+
+    if (!Object.keys(dict).length) return;
+
+
+    const translateValue = (value) => {
+
+        const trimmed = value.trim();
+
+        if (!trimmed) return value;
+
+        if (dict[trimmed]) {
+            return value.replace(
+                trimmed,
+                dict[trimmed]
+            );
+        }
+
+        return value;
+    };
+
+
+    const walker =
+        document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT
         );
 
-    </script>
+
+    const nodes = [];
+
+    let node;
 
 
-    {% block scripts %}
-    {% endblock %}
+    while (node = walker.nextNode()) {
+        nodes.push(node);
+    }
+
+
+    nodes.forEach((n) => {
+
+        if (
+            n.parentElement &&
+            ["SCRIPT", "STYLE"].includes(
+                n.parentElement.tagName
+            )
+        ) {
+            return;
+        }
+
+
+        const original =
+            n.nodeValue;
+
+        const translated =
+            translateValue(original);
+
+
+        if (translated !== original) {
+            n.nodeValue = translated;
+        }
+
+    });
+
+
+    document
+        .querySelectorAll(
+            "[placeholder],[title],[aria-label]"
+        )
+        .forEach((el) => {
+
+            [
+                "placeholder",
+                "title",
+                "aria-label"
+            ].forEach((attr) => {
+
+                const value =
+                    el.getAttribute(attr);
+
+                if (!value) return;
+
+
+                const translated =
+                    dict[value] || value;
+
+
+                if (translated !== value) {
+                    el.setAttribute(
+                        attr,
+                        translated
+                    );
+                }
+
+            });
+
+        });
+
+
+    document
+        .querySelectorAll("option")
+        .forEach((el) => {
+
+            const original =
+                el.textContent;
+
+            const translated =
+                translateValue(original);
+
+
+            if (translated !== original) {
+                el.textContent = translated;
+            }
+
+        });
+
+}
+
+
+const languageText = {
+
+    en: {
+        dashboard:"Dashboard",
+        equipment:"Equipment",
+        sensors:"Sensors",
+        maintenance:"Maintenance",
+        history:"History",
+        dark:"Dark Mode",
+        light:"Light Mode",
+        logout:"Logout"
+    },
+
+    my: {
+        dashboard:"ဒက်ရှ်ဘုတ်",
+        equipment:"ပစ္စည်းများ",
+        sensors:"ဆင်ဆာများ",
+        maintenance:"ပြုပြင်ထိန်းသိမ်းမှု",
+        history:"မှတ်တမ်း",
+        dark:"အမှောင်မုဒ်",
+        light:"အလင်းမုဒ်",
+        logout:"ထွက်မည်"
+    },
+
+    it: {
+        dashboard:"Dashboard",
+        equipment:"Attrezzatura",
+        sensors:"Sensori",
+        maintenance:"Manutenzione",
+        history:"Cronologia",
+        dark:"Modalità scura",
+        light:"Modalità chiara",
+        logout:"Esci"
+    }
+
+};
+
+
+function toggleDarkMode() {
+
+    const enabled =
+        document.documentElement.classList.toggle(
+            "dark"
+        );
+
+    localStorage.setItem(
+        "smartBuildingDarkMode",
+        enabled ? "true" : "false"
+    );
+
+    updatePreferences();
+
+}
+
+
+ function toggleMobileNavigation() {
+
+        const dropdown =
+            document.getElementById(
+                "mobileNavigationDropdown"
+            );
+
+        const button =
+            document.getElementById(
+                "mobileMenuButton"
+            );
+
+        if (!dropdown || !button) {
+            return;
+        }
+
+
+        const isHidden =
+            dropdown.classList.contains("hidden");
+
+
+        dropdown.classList.toggle(
+            "hidden",
+            !isHidden
+        );
+
+
+        button.setAttribute(
+            "aria-expanded",
+            String(isHidden)
+        );
+
+    }
+
+
+    // Close the dropdown after selecting a navigation link
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            document
+                .querySelectorAll(".mobile-nav-link")
+                .forEach(link => {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            const dropdown =
+                                document.getElementById(
+                                    "mobileNavigationDropdown"
+                                );
+
+                            const button =
+                                document.getElementById(
+                                    "mobileMenuButton"
+                                );
+
+
+                            if (dropdown) {
+                                dropdown.classList.add(
+                                    "hidden"
+                                );
+                            }
+
+
+                            if (button) {
+
+                                button.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                });
+
+        }
+    );
+
+function updateLogo() {
+
+    const logos = [
+        document.getElementById("sidebarLogo"),
+        document.getElementById("mobileLogo")
+    ];
+
+    const darkMode =
+        document.documentElement.classList.contains("dark");
+
+    logos.forEach(logo => {
+
+        if (!logo) {
+            return;
+        }
+
+        logo.src = darkMode
+            ? logo.dataset.darkLogo
+            : logo.dataset.lightLogo;
+
+    });
+
+}
+
+function updatePreferences() {
+
+    const enabled =
+        document.documentElement.classList.contains(
+            "dark"
+        );
+
+    const lang =
+        localStorage.getItem(
+            "smartBuildingLanguage"
+        ) || "en";
+
+
+    const t =
+        languageText[lang] ||
+        languageText.en;
+
+
+    const headerDarkModeText =
+        document.getElementById(
+            "headerDarkModeText"
+        );
+
+
+    const themeIcon =
+        document.getElementById(
+            "themeIcon"
+        );
+
+
+    if (headerDarkModeText) {
+
+        headerDarkModeText.textContent =
+            enabled
+                ? t.light
+                : t.dark;
+
+    }
+
+
+
+    if (themeIcon) {
+
+        themeIcon.innerHTML =
+            enabled
+
+                ? '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>'
+
+                : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+    }
+
+
+    document
+        .querySelectorAll(
+            "[data-nav-key]"
+        )
+        .forEach(el => {
+
+            const k =
+                el.dataset.navKey;
+
+            if (t[k]) {
+                el.textContent = t[k];
+            }
+
+        });
+
+
+    updateLogo();
+
+    translateContent();
+
+}
+
+
+function changeLanguage(lang) {
+
+    if (!languageText[lang]) {
+        lang = "en";
+    }
+
+    localStorage.setItem(
+        "smartBuildingLanguage",
+        lang
+    );
+
+    updatePreferences();
+
+    translateContent();
+
+}
+
+
+const translationObserver =
+    new MutationObserver((mutations) => {
+
+        const hasNewContent =
+            mutations.some(
+                mutation =>
+                    mutation.addedNodes.length > 0
+            );
+
+        if (!hasNewContent) return;
+
+        translateContent();
+
+    });
+
+
+translationObserver.observe(
+    document.body,
+    {
+        childList: true,
+        subtree: true
+    }
+);
+
+
+(function() {
+
+    const lang =
+        localStorage.getItem(
+            "smartBuildingLanguage"
+        ) || "en";
+
+
+    const selector =
+        document.getElementById(
+            "languageSelector"
+        );
+
+
+    if (selector) {
+        selector.value = lang;
+    }
+
+
+    updatePreferences();
+
+    updateLogo();
+
+    translateContent();
+
+})();
+
+</script>
+
 
 </body>
-
 </html>

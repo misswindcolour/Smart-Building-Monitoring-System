@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Dashboard - Smart Building Monitoring System
+{% endblock %}
+
+{% block page_title %}
+User Dashboard
+{% endblock %}
+
+{% block page_description %}
+Smart Building monitoring and service requests
+{% endblock %}
+
+
+{% block content %}
+
+<div class="p-5 sm:p-6 lg:p-8 space-y-6">
+
+
+    <!-- =====================================================
+         METRICS
+         ===================================================== -->
+
+    <div
+        class="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-4
+            gap-5
+        "
+    >
+
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Buildings
+            </p>
+
+            <p class="text-3xl font-bold text-[#0a5282] mt-2">
+                {{ total_buildings }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Equipment Units
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Faulty Units
+            </p>
+
+            <p class="text-3xl font-bold text-red-600 mt-2">
+                {{ faulty_equipment }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                My Active Requests
+            </p>
+
+            <p class="text-3xl font-bold text-amber-600 mt-2">
+                {{ active_requests }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         USER NOTICE
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+            border-l-4
+            border-[#0a5282]
+        "
+    >
+
+        <h2 class="font-bold text-lg">
+            User Access
+        </h2>
+
+        <p class="text-gray-600 dark:text-gray-400 mt-2">
+
+            You can monitor equipment and environmental
+            sensors, submit maintenance or building requests,
+            and view maintenance history.
+
+            Managers are responsible for updating and resolving
+            service requests.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         ENVIRONMENTAL ALERTS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <div class="flex justify-between mb-5">
+
+            <h2 class="text-lg font-bold">
+                Environmental Alerts
+            </h2>
+
+            <a
+                href="{{ url_for('sensors_page') }}"
+                class="view-sensors-link text-sm"
+            >
+                View Sensors
+            </a>
+
+        </div>
+
+
+        <div class="space-y-3">
+
+            {% for alert in sensor_alerts %}
+
+                <div
+                    class="
+                        border
+                        rounded-lg
+                        p-4
+                        {% if alert.sensor_status == 'Critical' %}
+                            active-equipment-alert bg-red-50 border-red-200
+                        {% elif alert.sensor_status == 'Warning' %}
+                            bg-amber-50 border-amber-200
+                        {% else %}
+                            bg-gray-50
+                        {% endif %}
+                    "
+                >
+
+                    <div class="flex justify-between gap-4">
+
+                        <div>
+
+                            <p class="font-bold">
+                                {{ alert.sensor_type }}
+                            </p>
+
+                            <p class="text-sm text-gray-600">
+                                {{ alert.building_code }}
+                                -
+                                {{ alert.building_name }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="text-right">
+
+                            <p class="font-bold">
+
+                                {% if alert.reading_value is not none %}
+
+                                    {{ "%.1f"|format(
+                                        alert.reading_value
+                                    ) }}
+
+                                    {{ alert.unit }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </p>
+
+                            <p class="text-xs font-bold">
+                                {{ alert.sensor_status }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <p class="text-gray-500">
+                    No active environmental alerts.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MY REQUESTS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <div class="flex justify-between mb-5">
+
+            <h2 class="text-lg font-bold">
+                My Recent Requests
+            </h2>
+
+            <a
+                href="{{ url_for('maintenance_page') }}"
+                class="text-sm text-[#71b2de] hover:underline"
+            >
+                Submit Request
+            </a>
+
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left min-w-[650px]">
+
+                <thead
+                    class="
+                        text-xs
+                        uppercase
+                        bg-gray-50
+                        dark:bg-gray-800
+                    "
+                >
+
+                    <tr>
+
+                        <th class="p-3">
+                            Request
+                        </th>
+
+                        <th class="p-3">
+                            Building
+                        </th>
+
+                        <th class="p-3">
+                            Priority
+                        </th>
+
+                        <th class="p-3">
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody class="divide-y dark:divide-gray-700">
+
+                    {% for item in my_requests %}
+
+                        <tr>
+
+                            <td class="p-3">
+                                {{ item.details }}
+                            </td>
+
+                            <td class="p-3">
+                                {{ item.building_code }}
+                            </td>
+
+                            <td class="p-3">
+                                {{ item.priority }}
+                            </td>
+
+                            <td class="p-3">
+                                {{ item.status }}
+                            </td>
+
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="p-6 text-center text-gray-500"
+                            >
+                                You have not submitted any requests yet.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

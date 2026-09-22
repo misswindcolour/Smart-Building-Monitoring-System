@@ -5,67 +5,22 @@ Manager Dashboard - Smart Building Monitoring System
 {% endblock %}
 
 {% block page_title %}
-Manager Oversight Portal
+Manager Control Center
 {% endblock %}
 
 {% block page_description %}
-Read-only monitoring and reporting
+Equipment, maintenance and environmental monitoring
 {% endblock %}
 
 
 {% block content %}
 
-<div
-    class="
-        p-5
-        sm:p-6
-        lg:p-8
-        space-y-6
-    "
->
+<div class="p-5 sm:p-6 lg:p-8 space-y-6">
 
 
-    <!-- ================================================= -->
-    <!-- MANAGER ACCESS -->
-    <!-- ================================================= -->
-
-    <div
-        class="
-            bg-blue-50
-            border
-            border-blue-200
-            rounded-xl
-            p-5
-        "
-    >
-
-        <h2
-            class="
-                font-bold
-                text-[#0a5282]
-            "
-        >
-            Manager Access
-        </h2>
-
-        <p
-            class="
-                text-sm
-                text-blue-800
-                mt-1
-            "
-        >
-            You can monitor equipment, environmental data,
-            maintenance requests and historical records.
-            Administrative modifications are restricted.
-        </p>
-
-    </div>
-
-
-    <!-- ================================================= -->
-    <!-- METRICS -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         METRICS
+         ===================================================== -->
 
     <div
         class="
@@ -77,36 +32,74 @@ Read-only monitoring and reporting
         "
     >
 
-        <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div
+            class="
+                bg-white
+                dark:bg-gray-900
+                p-6
+                rounded-xl
+                shadow-sm
+            "
+        >
 
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
                 Buildings
             </p>
 
-            <p class="text-3xl font-bold mt-2">
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    text-[#0a5282]
+                    mt-2
+                "
+            >
                 {{ total_buildings }}
             </p>
 
         </div>
 
 
-        <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div
+            class="
+                bg-white
+                dark:bg-gray-900
+                p-6
+                rounded-xl
+                shadow-sm
+            "
+        >
 
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
                 Equipment Units
             </p>
 
-            <p class="text-3xl font-bold mt-2">
+            <p
+                class="
+                    text-3xl
+                    font-bold
+                    dark:text-white
+                    mt-2
+                "
+            >
                 {{ total_equipment }}
             </p>
 
         </div>
 
 
-        <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div
+            class="
+                bg-white
+                dark:bg-gray-900
+                p-6
+                rounded-xl
+                shadow-sm
+            "
+        >
 
-            <p class="text-sm text-gray-500">
-                Faulty Equipment
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Faulty Units
             </p>
 
             <p
@@ -123,21 +116,29 @@ Read-only monitoring and reporting
         </div>
 
 
-        <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div
+            class="
+                bg-white
+                dark:bg-gray-900
+                p-6
+                rounded-xl
+                shadow-sm
+            "
+        >
 
-            <p class="text-sm text-gray-500">
-                Resolved Tickets
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Active Maintenance
             </p>
 
             <p
                 class="
                     text-3xl
                     font-bold
-                    text-green-600
+                    text-amber-600
                     mt-2
                 "
             >
-                {{ resolved_count }}
+                {{ pending_requests }}
             </p>
 
         </div>
@@ -145,13 +146,14 @@ Read-only monitoring and reporting
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- SENSOR TELEMETRY -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         SENSOR ALERTS
+         ===================================================== -->
 
     <section
         class="
             bg-white
+            dark:bg-gray-900
             rounded-xl
             shadow-sm
             p-5
@@ -159,105 +161,150 @@ Read-only monitoring and reporting
         "
     >
 
-        <h2
+        <div
             class="
-                text-lg
-                font-bold
+                flex
+                flex-col
+                sm:flex-row
+                sm:justify-between
+                gap-3
                 mb-5
             "
         >
-            Latest Environmental Telemetry
-        </h2>
 
+            <div>
 
-        <div
-            class="
-                grid
-                grid-cols-1
-                sm:grid-cols-2
-                lg:grid-cols-3
-                gap-4
-            "
-        >
-
-            {% for sensor in sensor_telemetry %}
-
-            <div
-                class="
-                    border
-                    rounded-lg
-                    p-4
-                "
-            >
-
-                <p
+                <h2
                     class="
-                        text-xs
-                        text-gray-500
+                        text-lg
+                        font-bold
+                        dark:text-white
                     "
                 >
-                    {{ sensor.building_code }}
-                    -
-                    {{ sensor.building_name }}
-                </p>
+                    Environmental Alerts
+                </h2>
 
                 <p
                     class="
-                        font-bold
+                        text-sm
+                        text-gray-500
+                        dark:text-gray-400
                         mt-1
                     "
                 >
-                    {{ sensor.sensor_type }}
+                    Sensor values outside prototype thresholds
                 </p>
-
-
-                {% if
-                    sensor.status == "Online"
-                    and sensor.reading_value is not none
-                %}
-
-                <p
-                    class="
-                        text-2xl
-                        font-bold
-                        text-[#0a5282]
-                        mt-3
-                    "
-                >
-
-                    {{ "%.1f"|format(sensor.reading_value) }}
-
-                    {% if sensor.sensor_type == "Temperature" %}
-                        °C
-                    {% elif sensor.sensor_type == "Humidity" %}
-                        %
-                    {% else %}
-                        AQI
-                    {% endif %}
-
-                </p>
-
-                {% else %}
-
-                <p
-                    class="
-                        text-red-600
-                        font-bold
-                        mt-3
-                    "
-                >
-                    {{ sensor.status }}
-                </p>
-
-                {% endif %}
 
             </div>
 
+
+<a
+    href="{{ url_for('sensors_page') }}"
+    class="dashboard-action-link text-sm hover:underline"
+>
+    View Sensors
+</a>
+
+        </div>
+
+
+        <div class="space-y-3">
+
+            {% for alert in sensor_alerts %}
+
+                <div
+                    class="
+                        border
+                        rounded-lg
+                        p-4
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:justify-between
+                        gap-3
+                        {% if alert.sensor_status == 'Critical' %}
+                            active-equipment-alert bg-red-50
+                            border-red-200
+                        {% elif alert.sensor_status == 'Warning' %}
+                            bg-amber-50
+                            border-amber-200
+                        {% else %}
+                            bg-gray-50
+                            border-gray-200
+                        {% endif %}
+                    "
+                >
+
+                    <div>
+
+                        <p class="font-bold">
+
+                            {% if alert.sensor_status == 'Critical' %}
+                                🚨
+                            {% elif alert.sensor_status == 'Warning' %}
+                                ⚠️
+                            {% else %}
+                                ℹ️
+                            {% endif %}
+
+                            {{ alert.sensor_type }}
+
+                        </p>
+
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+
+                            {{ alert.building_code }}
+                            -
+                            {{ alert.building_name }}
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="text-right">
+
+                        <p class="font-bold">
+
+                            {% if alert.reading_value is not none %}
+                                {{ "%.1f"|format(alert.reading_value) }}
+                                {{ alert.unit }}
+                            {% else %}
+                                No reading
+                            {% endif %}
+
+                        </p>
+
+                        <p
+                            class="
+                                text-xs
+                                font-bold
+                                {% if alert.sensor_status == 'Critical' %}
+                                    text-red-600
+                                {% elif alert.sensor_status == 'Warning' %}
+                                    text-amber-600
+                                {% else %}
+                                    text-gray-500
+                                {% endif %}
+                            "
+                        >
+                            {{ alert.sensor_status }}
+                        </p>
+
+                    </div>
+
+                </div>
+
             {% else %}
 
-            <p class="text-gray-500">
-                No sensor data available.
-            </p>
+                <p
+                    class="
+                        text-gray-500
+                        dark:text-gray-400
+                    "
+                >
+                    No environmental alerts are active.
+                </p>
 
             {% endfor %}
 
@@ -266,13 +313,14 @@ Read-only monitoring and reporting
     </section>
 
 
-    <!-- ================================================= -->
-    <!-- BUILDING OVERVIEW -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         EQUIPMENT ALERTS
+         ===================================================== -->
 
     <section
         class="
             bg-white
+            dark:bg-gray-900
             rounded-xl
             shadow-sm
             p-5
@@ -280,14 +328,125 @@ Read-only monitoring and reporting
         "
     >
 
-        <h2
+        <div
             class="
-                text-lg
-                font-bold
+                flex
+                flex-col
+                sm:flex-row
+                sm:justify-between
+                gap-3
                 mb-5
             "
         >
-            Building Monitoring Overview
+
+            <h2 class="text-lg font-bold">
+                Active Equipment Alerts
+            </h2>
+
+<a
+    href="{{ url_for('equipment_page') }}"
+    class="dashboard-action-link text-sm hover:underline"
+>
+    View Equipment
+</a>
+
+        </div>
+
+
+        <div class="space-y-3">
+
+            {% for alert in equipment_alerts %}
+
+                <div
+                    class="
+                        border
+                        border-red-200
+                        active-equipment-alert bg-red-50
+                        rounded-lg
+                        p-4
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:justify-between
+                        gap-3
+                    "
+                >
+
+                    <div>
+
+                        <p class="font-bold text-red-900">
+                            {{ alert.equipment_name }}
+                        </p>
+
+                        <p class="text-sm text-red-700">
+                            {{ alert.building_code }}
+                            -
+                            {{ alert.building_name }}
+                        </p>
+
+                        <p class="text-sm text-red-700 mt-1">
+
+                            Status:
+                            {{ alert.status }}
+
+                            |
+
+                            Faulty:
+                            {{ alert.faulty_count }}
+
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="{{ url_for('equipment_page') }}"
+                        class="
+                            self-start
+                            bg-[#0a5282]
+                            hover:bg-[#083f63]
+                            text-white
+                            px-4
+                            py-2
+                            rounded-lg
+                            text-sm
+                        "
+                    >
+                        Manage
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <p class="text-gray-500">
+                    No active equipment alerts.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUILDING OVERVIEW
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <h2 class="text-lg font-bold mb-5">
+            Building Overview
         </h2>
 
 
@@ -302,122 +461,262 @@ Read-only monitoring and reporting
 
             {% for building in buildings_overview %}
 
-            <div
+                <div
+                    class="
+                        border
+                        dark:border-gray-700
+                        rounded-lg
+                        p-5
+                    "
+                >
+
+                    <div
+                        class="
+                            flex
+                            flex-col
+                            sm:flex-row
+                            sm:justify-between
+                            gap-3
+                        "
+                    >
+
+                        <div>
+
+                            <h3 class="font-bold">
+                                {{ building.building_code }}
+                            </h3>
+
+                            <p
+                                class="
+                                    text-sm
+                                    text-gray-500
+                                    dark:text-gray-400
+                                "
+                            >
+                                {{ building.building_name }}
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="
+                                text-sm
+                                bg-gray-100
+                                dark:bg-gray-800
+                                px-3
+                                py-1
+                                rounded
+                                h-fit
+                                w-fit
+                            "
+                        >
+                            Capacity:
+                            {{ building.capacity }}
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            mt-4
+                            grid
+                            grid-cols-2
+                            gap-3
+                        "
+                    >
+
+                        <div
+                            class="
+                                bg-gray-50
+                                dark:bg-gray-800
+                                p-3
+                                rounded
+                            "
+                        >
+
+                            <p class="text-xs text-gray-500">
+                                Equipment Units
+                            </p>
+
+                            <p class="font-bold text-lg">
+                                {{ building.equipment_units }}
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="
+                                active-equipment-alert bg-red-50
+                                dark:bg-red-950
+                                p-3
+                                rounded
+                            "
+                        >
+
+                            <p class="text-xs text-red-600">
+                                Faulty Units
+                            </p>
+
+                            <p class="font-bold text-lg text-red-600">
+                                {{ building.faulty_count }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RECENT REQUESTS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-5
+            sm:p-6
+        "
+    >
+
+        <div
+            class="
+                flex
+                justify-between
+                gap-3
+                mb-5
+            "
+        >
+
+            <h2 class="text-lg font-bold">
+                Recent Maintenance Requests
+            </h2>
+
+<a
+    href="{{ url_for('maintenance_page') }}"
+    class="dashboard-action-link text-sm hover:underline"
+>
+    View All
+</a>
+
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table
                 class="
-                    border
-                    rounded-lg
-                    p-5
+                    w-full
+                    text-left
+                    min-w-[650px]
                 "
             >
 
-                <div
+                <thead
                     class="
-                        flex
-                        flex-col
-                        sm:flex-row
-                        sm:justify-between
-                        gap-3
+                        text-xs
+                        uppercase
+                        bg-gray-50
+                        dark:bg-gray-800
                     "
                 >
 
-                    <h3 class="font-bold">
+                    <tr>
 
-                        {{ building.building_code }}
-                        -
-                        {{ building.building_name }}
+                        <th class="p-3">
+                            Request
+                        </th>
 
-                    </h3>
+                        <th class="p-3">
+                            Requested By
+                        </th>
 
+                        <th class="p-3">
+                            Building
+                        </th>
 
-                    <span
-                        class="
-                            text-sm
-                            bg-gray-100
-                            px-3
-                            py-1
-                            rounded
-                            w-fit
-                        "
-                    >
-                        Capacity:
-                        {{ building.capacity }}
-                    </span>
+                        <th class="p-3">
+                            Priority
+                        </th>
 
-                </div>
+                        <th class="p-3">
+                            Status
+                        </th>
 
+                    </tr>
 
-                <div
-                    class="
-                        mt-4
-                        grid
-                        grid-cols-2
-                        gap-3
-                    "
-                >
-
-                    <div
-                        class="
-                            bg-gray-50
-                            p-3
-                            rounded
-                        "
-                    >
-
-                        <p
-                            class="
-                                text-xs
-                                text-gray-500
-                            "
-                        >
-                            Equipment
-                        </p>
-
-                        <p
-                            class="
-                                font-bold
-                                text-lg
-                            "
-                        >
-                            {{ building.equipment_units }}
-                        </p>
-
-                    </div>
+                </thead>
 
 
-                    <div
-                        class="
-                            bg-red-50
-                            p-3
-                            rounded
-                        "
-                    >
+                <tbody class="divide-y dark:divide-gray-700">
 
-                        <p
-                            class="
-                                text-xs
-                                text-red-600
-                            "
-                        >
-                            Faulty
-                        </p>
+                    {% for item in recent_requests %}
 
-                        <p
-                            class="
-                                font-bold
-                                text-lg
-                                text-red-600
-                            "
-                        >
-                            {{ building.faulty_count }}
-                        </p>
+                        <tr>
 
-                    </div>
+                            <td class="p-3">
+                                {{ item.details }}
+                            </td>
 
-                </div>
+                            <td
+                                class="
+                                    p-3
+                                    font-medium
+                                    text-[#0a5282]
+                                "
+                            >
+                                {{ item.requester }}
+                            </td>
 
-            </div>
+                            <td class="p-3">
+                                {{ item.building_code }}
+                            </td>
 
-            {% endfor %}
+                            <td class="p-3">
+                                {{ item.priority }}
+                            </td>
+
+                            <td class="p-3">
+                                {{ item.status }}
+                            </td>
+
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="
+                                    p-6
+                                    text-center
+                                    text-gray-500
+                                "
+                            >
+                                No maintenance requests found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
 
         </div>
 

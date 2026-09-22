@@ -9,89 +9,407 @@ Environmental Sensor Monitoring
 {% endblock %}
 
 {% block page_description %}
-Latest temperature, humidity and air-quality readings
+Temperature, humidity and air-quality monitoring
 {% endblock %}
 
 
 {% block content %}
 
-<div
-    class="
-        p-5
-        sm:p-6
-        lg:p-8
-    "
->
+<div class="p-5 sm:p-6 lg:p-8 space-y-6">
 
-    <div
+
+    <!-- =====================================================
+         ACTIVE ALERTS
+         ===================================================== -->
+
+    <section
         class="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-6
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
         "
     >
 
-        {% for building_name, sensors in buildings_dict.items() %}
-
-        <section
+        <div
             class="
-                bg-white
-                rounded-xl
-                shadow-sm
-                p-6
+                flex
+                flex-col
+                sm:flex-row
+                sm:justify-between
+                gap-3
+                mb-5
             "
         >
 
-            <h2
+            <div>
+
+                <h2 class="text-lg font-bold">
+                    Environmental Notifications
+                </h2>
+
+                <p
+                    class="
+                        text-sm
+                        text-gray-500
+                        dark:text-gray-400
+                        mt-1
+                    "
+                >
+                    Alerts are generated when readings
+                    exceed prototype thresholds.
+                </p>
+
+            </div>
+
+
+            <span
                 class="
-                    text-lg
+                    h-fit
+                    px-3
+                    py-1
+                    rounded-full
+                    text-sm
                     font-bold
-                    border-b
-                    pb-3
-                    mb-4
+                    {% if sensor_alerts|length > 0 %}
+                        bg-red-100
+                        text-red-700
+                    {% else %}
+                        bg-green-100
+                        text-green-700
+                    {% endif %}
                 "
             >
-                {{ building_name }}
-            </h2>
+
+                {{ sensor_alerts|length }}
+                Active
+
+            </span>
+
+        </div>
 
 
-            <div class="space-y-4">
+        <div class="space-y-3">
 
-                {% for sensor in sensors %}
+            {% for alert in sensor_alerts %}
+
+                <div
+                    class="
+                        rounded-lg
+                        border
+                        p-4
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:justify-between
+                        gap-3
+
+                        {% if alert.sensor_status == 'Critical' %}
+                            bg-red-50
+                            border-red-200
+
+                        {% elif alert.sensor_status == 'Warning' %}
+                            bg-amber-50
+                            border-amber-200
+
+                        {% elif alert.sensor_status == 'Offline' %}
+                            bg-gray-100
+                            border-gray-300
+
+                        {% else %}
+                            bg-blue-50
+                            border-blue-200
+                        {% endif %}
+                    "
+                >
+
+                    <div>
+
+                        <p class="font-bold">
+
+                            {% if alert.sensor_status == 'Critical' %}
+                                🚨 Critical Alert
+
+                            {% elif alert.sensor_status == 'Warning' %}
+                                ⚠️ Warning
+
+                            {% elif alert.sensor_status == 'Offline' %}
+                                ⚫ Sensor Offline
+
+                            {% else %}
+                                🔧 Maintenance
+
+                            {% endif %}
+
+                        </p>
+
+                        <p class="text-sm mt-1">
+
+                            {{ alert.building_code }}
+                            -
+                            {{ alert.building_name }}
+
+                            ·
+
+                            {{ alert.sensor_type }}
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="text-right">
+
+                        <p class="font-bold">
+
+                            {% if alert.reading_value is not none %}
+
+                                {{ "%.1f"|format(
+                                    alert.reading_value
+                                ) }}
+
+                                {{ alert.unit }}
+
+                            {% else %}
+
+                                No reading
+
+                            {% endif %}
+
+                        </p>
+
+                        <p class="text-xs">
+    {{ alert.sensor_status }}
+</p>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div
+                    class="
+                        bg-green-50
+                        dark:bg-green-950
+                        border
+                        border-green-200
+                        p-4
+                        rounded-lg
+                    "
+                >
+
+                    <p class="font-medium text-green-700">
+                        ✓ All monitored sensors are currently
+                        within their configured prototype ranges.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTERS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2 class="text-lg font-bold mb-4">
+            Sensor Filters
+        </h2>
+
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                md:grid-cols-3
+                gap-4
+            "
+        >
+
+            <div>
+
+                <label class="block text-sm font-medium mb-2">
+                    Building
+                </label>
+
+                <select
+                    id="buildingFilter"
+                    onchange="filterSensors()"
+                    class="
+                        w-full
+                        border
+                        dark:border-gray-700
+                        dark:bg-gray-800
+                        p-2.5
+                        rounded-lg
+                    "
+                >
+
+                    <option value="">
+                        All Buildings
+                    </option>
+
+                    {% for b in buildings %}
+
+                        <option
+                            value="{{ b.building_code }}"
+                        >
+
+                            {{ b.building_code }}
+                            -
+                            {{ b.building_name }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm font-medium mb-2">
+                    Sensor Type
+                </label>
+
+                <select
+                    id="typeFilter"
+                    onchange="filterSensors()"
+                    class="
+                        w-full
+                        border
+                        dark:border-gray-700
+                        dark:bg-gray-800
+                        p-2.5
+                        rounded-lg
+                    "
+                >
+
+                    <option value="">
+                        All Sensor Types
+                    </option>
+
+                    <option value="Temperature">
+                        Temperature
+                    </option>
+
+                    <option value="Humidity">
+                        Humidity
+                    </option>
+
+                    <option value="Air Quality">
+                        Air Quality
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm font-medium mb-2">
+                    Status
+                </label>
+
+                <select
+                    id="statusFilter"
+                    onchange="filterSensors()"
+                    class="
+                        w-full
+                        border
+                        dark:border-gray-700
+                        dark:bg-gray-800
+                        p-2.5
+                        rounded-lg
+                    "
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="Normal">
+                        Normal
+                    </option>
+
+                    <option value="Maintenance">
+                        Maintenance
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUILDING STATUS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2 class="text-lg font-bold mb-5">
+            Building Sensor Status
+        </h2>
+
+
+        <div
+            class="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-4
+                gap-4
+            "
+        >
+
+            {% for building, status in building_statuses.items() %}
 
                 <div
                     class="
                         border
+                        dark:border-gray-700
                         rounded-lg
                         p-4
                     "
                 >
 
-                    <div
-                        class="
-                            flex
-                            flex-col
-                            sm:flex-row
-                            sm:justify-between
-                            gap-3
-                        "
-                    >
+                    <div class="flex justify-between gap-3">
 
                         <div>
 
                             <p class="font-bold">
-                                {{ sensor.sensor_type }}
-                            </p>
-
-                            <p
-                                class="
-                                    text-xs
-                                    text-gray-500
-                                "
-                            >
-                                Sensor #{{ sensor.sensor_id }}
+                                {{ building }}
                             </p>
 
                         </div>
@@ -99,123 +417,889 @@ Latest temperature, humidity and air-quality readings
 
                         <span
                             class="
-                                text-xs
+                            sensor-status-dark
                                 px-2
                                 py-1
                                 rounded-full
-                                w-fit
+                                text-xs
+                                font-bold
 
-                                {% if sensor.status == 'Online' %}
+                                {% if status == 'Normal' %}
                                     bg-green-100
                                     text-green-700
 
-                                {% elif sensor.status == 'Maintenance' %}
+                                {% elif status == 'Warning' %}
                                     bg-amber-100
                                     text-amber-700
 
-                                {% else %}
+                                {% elif status == 'Critical' %}
                                     bg-red-100
                                     text-red-700
+
+                                {% else %}
+                                    bg-gray-200
+                                    text-gray-700
                                 {% endif %}
                             "
                         >
-                            {{ sensor.status }}
+                            {{ status }}
                         </span>
 
                     </div>
 
+                </div>
 
-                    {% if
-                        sensor.status == "Online"
-                        and sensor.reading_value is not none
-                    %}
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SENSOR CARDS
+         ===================================================== -->
+
+    {% for building, sensors in buildings_dict.items() %}
+
+        <section
+            class="
+                sensor-building
+                bg-white
+                dark:bg-gray-900
+                rounded-xl
+                shadow-sm
+                p-6
+            "
+            data-building="{{ sensors[0].building_code }}"
+        >
+
+            <div
+                class="
+                    flex
+                    flex-col
+                    sm:flex-row
+                    sm:justify-between
+                    gap-3
+                    mb-5
+                "
+            >
+
+                <div>
+
+                    <h2 class="text-lg font-bold">
+                        {{ sensors[0].building_code }}
+                        -
+                        {{ building }}
+                    </h2>
 
                     <p
                         class="
-                            text-3xl
-                            font-bold
-                            text-[#0a5282]
-                            mt-4
+                            text-sm
+                            text-gray-500
+                            dark:text-gray-400
                         "
                     >
-
-                        {{ "%.1f"|format(sensor.reading_value) }}
-
-                        {% if sensor.sensor_type == "Temperature" %}
-                            °C
-                        {% elif sensor.sensor_type == "Humidity" %}
-                            %
-                        {% else %}
-                            AQI
-                        {% endif %}
-
+                        Environmental sensors
                     </p>
-
-
-                    <p
-                        class="
-                            text-xs
-                            text-gray-400
-                            mt-2
-                        "
-                    >
-                        Latest recorded reading:
-                        {{ sensor.timestamp }}
-                    </p>
-
-
-                    {% else %}
-
-                    <p
-                        class="
-                            text-red-600
-                            font-bold
-                            mt-4
-                        "
-                    >
-                        No live reading available
-                    </p>
-
-                    {% endif %}
 
                 </div>
+
+                <span
+                    class="
+                        building-status
+                        px-3
+                        py-1
+                        rounded-full
+                        text-xs
+                        font-bold
+                        h-fit
+                    "
+                    data-building-status="{{ building_statuses[building] }}"
+                >
+                    {{ building_statuses[building] }}
+                </span>
+
+            </div>
+
+
+            <div
+                class="
+                    grid
+                    grid-cols-1
+                    md:grid-cols-3
+                    gap-4
+                "
+            >
+
+                {% for sensor in sensors %}
+
+                    <div
+                        class="
+                            sensor-card
+                            border
+                            dark:border-gray-700
+                            rounded-lg
+                            p-5
+                            sensor-item
+                        "
+                        data-building="{{ sensor.building_code }}"
+                        data-type="{{ sensor.sensor_type }}"
+                        data-status="{{ sensor.calculated_status }}"
+                    >
+
+                        <div
+                            class="
+                                flex
+                                justify-between
+                                items-start
+                                gap-3
+                            "
+                        >
+
+                            <div>
+
+                                <p
+                                    class="
+                                        text-sm
+                                        text-gray-500
+                                        dark:text-gray-400
+                                    "
+                                >
+                                    {{ sensor.sensor_type }}
+                                </p>
+
+                                <p
+                                    class="
+                                        text-2xl
+                                        font-bold
+                                        mt-2
+                                    "
+                                >
+
+                                    {% if sensor.reading_value is not none %}
+
+                                        {{ "%.1f"|format(
+                                            sensor.reading_value
+                                        ) }}
+
+                                    {% else %}
+
+                                        N/A
+
+                                    {% endif %}
+
+                                </p>
+
+                            </div>
+
+
+                            <span
+                                class="
+                                sensor-status-dark
+                                    px-2
+                                    py-1
+                                    rounded-full
+                                    text-xs
+                                    font-bold
+
+                                    {% if sensor.calculated_status == 'Normal' %}
+                                        bg-green-100
+                                        text-green-700
+
+                                    {% elif sensor.calculated_status == 'Warning' %}
+                                        bg-amber-100
+                                        text-amber-700
+
+                                    {% elif sensor.calculated_status == 'Critical' %}
+                                        bg-red-100
+                                        text-red-700
+
+                                    {% elif sensor.calculated_status == 'Offline' %}
+                                        bg-gray-200
+                                        text-gray-700
+
+                                    {% else %}
+                                        bg-blue-100
+                                        text-blue-700
+                                    {% endif %}
+                                "
+                            >
+                                {{ sensor.calculated_status }}
+                            </span>
+
+                        </div>
+
+
+                        <p
+                            class="
+                                text-xs
+                                text-gray-500
+                                dark:text-gray-400
+                                mt-4
+                            "
+                        >
+
+                            {% if sensor.reading_value is not none %}
+
+                                Last reading:
+                                {{ sensor.timestamp }}
+
+                            {% else %}
+
+                                No reading available.
+
+                            {% endif %}
+
+                        </p>
+
+                    </div>
 
                 {% endfor %}
 
             </div>
 
-
-            <p
-                class="
-                    text-xs
-                    text-gray-400
-                    mt-5
-                "
-            >
-                Prototype telemetry feed
-            </p>
-
         </section>
 
-        {% else %}
+    {% endfor %}
+
+
+    <!-- =====================================================
+         TEMPERATURE TRACKING
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
 
         <div
             class="
-                bg-white
-                rounded-xl
-                shadow-sm
-                p-8
-                text-center
-                text-gray-500
+                flex
+                flex-col
+                md:flex-row
+                md:items-center
+                md:justify-between
+                gap-4
+                mb-5
             "
         >
-            No environmental sensor data available.
+
+            <div>
+
+                <h2 class="text-lg font-bold">
+                    Temperature Tracking
+                </h2>
+
+                <p
+                    class="
+                        text-sm
+                        text-gray-500
+                        dark:text-gray-400
+                        mt-1
+                    "
+                >
+                    Historical temperature readings
+                </p>
+
+            </div>
+
+
+            <div class="flex gap-2">
+
+                <select
+                    id="temperatureBuilding"
+                    onchange="loadTemperatureHistory()"
+                    class="
+                        border
+                        dark:border-gray-700
+                        dark:bg-gray-800
+                        p-2
+                        rounded
+                    "
+                >
+
+                    <option value="">
+                        All Buildings
+                    </option>
+
+                    {% for b in buildings %}
+
+                        <option value="{{ b.id }}">
+                            {{ b.building_code }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <select
+                    id="temperatureHours"
+                    onchange="loadTemperatureHistory()"
+                    class="
+                        border
+                        dark:border-gray-700
+                        dark:bg-gray-800
+                        p-2
+                        rounded
+                    "
+                >
+
+                    <option value="6">
+                        6 Hours
+                    </option>
+
+                    <option value="12">
+                        12 Hours
+                    </option>
+
+                    <option value="24" selected>
+                        24 Hours
+                    </option>
+
+                    <option value="48">
+                        48 Hours
+                    </option>
+
+                    <option value="168">
+                        7 Days
+                    </option>
+
+                </select>
+
+            </div>
+
         </div>
 
-        {% endfor %}
 
-    </div>
+        <div
+            class="
+                temperature-chart-wrap
+                relative
+                h-80
+                border
+                dark:border-gray-700
+                rounded-lg
+                p-4
+                overflow-hidden
+            "
+        >
+
+            <canvas id="temperatureChart"></canvas>
+
+            <p
+                id="temperatureMessage"
+                class="hidden text-sm text-gray-500 text-center mt-3"
+            ></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         THRESHOLDS
+         ===================================================== -->
+
+    <section
+        class="
+            bg-white
+            dark:bg-gray-900
+            rounded-xl
+            shadow-sm
+            p-6
+        "
+    >
+
+        <h2 class="text-lg font-bold mb-4">
+            Prototype Sensor Thresholds
+        </h2>
+
+        <p
+            class="
+                text-sm
+                text-gray-500
+                dark:text-gray-400
+                mb-5
+            "
+        >
+            These thresholds are prototype monitoring values
+            for this academic system and should not be treated
+            as official building safety limits.
+        </p>
+
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+                <thead
+                    class="
+                        bg-gray-50
+                        dark:bg-gray-800
+                        text-xs
+                        uppercase
+                    "
+                >
+
+                    <tr>
+
+                        <th class="p-3">
+                            Sensor
+                        </th>
+
+                        <th class="p-3">
+                            Normal Range
+                        </th>
+
+                        <th class="p-3">
+                            Warning
+                        </th>
+
+                        <th class="p-3">
+                            Critical
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr class="border-b dark:border-gray-700">
+
+                        <td class="p-3 font-medium">
+                            Temperature
+                        </td>
+
+                        <td class="p-3">
+                            18–28 °C
+                        </td>
+
+                        <td class="p-3">
+                            15–18 °C
+                            /
+                            28–32 °C
+                        </td>
+
+                        <td class="p-3">
+                            &lt;15 °C
+                            /
+                            &gt;32 °C
+                        </td>
+
+                    </tr>
+
+
+                    <tr class="border-b dark:border-gray-700">
+
+                        <td class="p-3 font-medium">
+                            Humidity
+                        </td>
+
+                        <td class="p-3">
+                            30–60 %
+                        </td>
+
+                        <td class="p-3">
+                            20–30 %
+                            /
+                            60–70 %
+                        </td>
+
+                        <td class="p-3">
+                            &lt;20 %
+                            /
+                            &gt;70 %
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="p-3 font-medium">
+                            Air Quality
+                        </td>
+
+                        <td class="p-3">
+                            0–50 AQI
+                        </td>
+
+                        <td class="p-3">
+                            51–100 AQI
+                        </td>
+
+                        <td class="p-3">
+                            &gt;100 AQI
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 </div>
+
+
+<!-- =========================================================
+     CHART.JS
+     ========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    let temperatureChart = null;
+
+    const initialTemperatureData =
+        {{ temperature_chart|tojson }};
+
+
+    function filterSensors() {
+
+        const building =
+            document.getElementById(
+                "buildingFilter"
+            ).value;
+
+        const type =
+            document.getElementById(
+                "typeFilter"
+            ).value;
+
+        const status =
+            document.getElementById(
+                "statusFilter"
+            ).value;
+
+
+        document
+            .querySelectorAll(".sensor-item")
+            .forEach(card => {
+
+                const match =
+                    (!building ||
+                        card.dataset.building === building) &&
+
+                    (!type ||
+                        card.dataset.type === type) &&
+
+                    (!status ||
+                        card.dataset.status === status);
+
+
+                card.style.display =
+                    match ? "" : "none";
+
+            });
+
+
+        document
+            .querySelectorAll(".sensor-building")
+            .forEach(section => {
+
+                const visible =
+                    section.querySelectorAll(
+                        ".sensor-item:not([style*='display: none'])"
+                    ).length;
+
+
+                section.style.display =
+                    visible > 0 ? "" : "none";
+
+            });
+
+    }
+
+
+    function showTemperatureMessage(message) {
+
+        const box =
+            document.getElementById(
+                "temperatureMessage"
+            );
+
+
+        if (!box) return;
+
+
+        box.textContent = message;
+
+
+        box.classList.toggle(
+            "hidden",
+            !message
+        );
+
+    }
+
+
+    async function loadTemperatureHistory() {
+
+        const building =
+            document.getElementById(
+                "temperatureBuilding"
+            ).value;
+
+
+        const hours =
+            document.getElementById(
+                "temperatureHours"
+            ).value;
+
+
+        let url =
+            "{{ url_for('temperature_history') }}?hours=" +
+            encodeURIComponent(hours);
+
+
+        if (building) {
+
+            url +=
+                "&building_id=" +
+                encodeURIComponent(building);
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    url,
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "HTTP " + response.status
+                );
+            }
+
+
+            const result =
+                await response.json();
+
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "Unable to load readings"
+                );
+
+            }
+
+
+            const readings =
+                Array.isArray(result.data) &&
+                result.data.length
+
+                    ? result.data
+
+                    : (
+                        initialTemperatureData || []
+                    );
+
+
+            drawTemperatureChart(
+                readings
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Temperature history error:",
+                error
+            );
+
+
+            drawTemperatureChart(
+                initialTemperatureData || []
+            );
+
+
+            showTemperatureMessage(
+                "Live refresh unavailable. Showing the available readings."
+            );
+
+        }
+
+    }
+
+
+    function drawTemperatureChart(data) {
+
+        const canvas =
+            document.getElementById(
+                "temperatureChart"
+            );
+
+
+        if (!canvas) return;
+
+
+        const filtered =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        showTemperatureMessage(
+            filtered.length
+                ? ""
+                : "No temperature readings are available yet."
+        );
+
+
+        if (temperatureChart) {
+            temperatureChart.destroy();
+        }
+
+
+        canvas.style.display =
+            "block";
+
+
+        canvas.style.minHeight =
+            "280px";
+
+
+        temperatureChart =
+            new Chart(
+                canvas,
+                {
+                    type: "line",
+
+                    data: {
+
+                        labels:
+                            filtered.map(
+                                item =>
+                                    item.timestamp
+                            ),
+
+                        datasets: [
+                            {
+                                label:
+                                    "Temperature (°C)",
+
+                                data:
+                                    filtered.map(
+                                        item =>
+                                            item.value
+                                    ),
+
+                                tension: 0.3,
+
+                                borderWidth: 2,
+
+                                pointRadius: 3,
+
+                                fill: false
+                            }
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        interaction: {
+                            mode: "index",
+                            intersect: false
+                        },
+
+                        scales: {
+
+                            y: {
+                                beginAtZero: false,
+
+                                title: {
+                                    display: true,
+                                    text: "°C"
+                                }
+                            },
+
+                            x: {
+                                ticks: {
+                                    maxTicksLimit: 10,
+                                    autoSkip: true
+                                }
+                            }
+
+                        },
+
+                        plugins: {
+
+                            legend: {
+                                display: true
+                            },
+
+                            tooltip: {
+
+                                callbacks: {
+
+                                    label:
+                                        context =>
+                                            " " +
+                                            context.parsed.y +
+                                            " °C"
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            drawTemperatureChart(
+                initialTemperatureData || []
+            );
+
+            loadTemperatureHistory();
+
+
+            window.setInterval(
+                loadTemperatureHistory,
+                30000
+            );
+
+        }
+    );
+
+</script>
 
 {% endblock %}

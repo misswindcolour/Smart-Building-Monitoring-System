@@ -250,23 +250,22 @@ def init_database():
             # USERS
             # ---------------------------------------------------------
 
-            admin_hash = generate_password_hash("admin123")
-            manager_hash = generate_password_hash("manager123")
+manager_hash = generate_password_hash("manager123")
+user_hash = generate_password_hash("user123")
 
-            cursor.execute("""
-                INSERT INTO users
-                    (id, username, password_hash, role_id)
-                VALUES
-                    (1, 'admin_user', %s, 1)
-            """, (admin_hash,))
+cursor.execute("""
+    INSERT INTO users
+        (id, username, password_hash, role_id)
+    VALUES
+        (1, 'manager_account', %s, 1)
+""", (manager_hash,))
 
-            cursor.execute("""
-                INSERT INTO users
-                    (id, username, password_hash, role_id)
-                VALUES
-                    (2, 'manager_user', %s, 2)
-            """, (manager_hash,))
-
+cursor.execute("""
+    INSERT INTO users
+        (id, username, password_hash, role_id)
+    VALUES
+        (2, 'user_account', %s, 2)
+""", (user_hash,))
             # ---------------------------------------------------------
             # BUILDINGS
             # ---------------------------------------------------------
@@ -524,3 +523,13 @@ def init_database():
 
 if __name__ == "__main__":
     init_database()
+
+
+print("Manager login:")
+print("Username: manager_account")
+print("Password: manager123")
+print("")
+
+print("User login:")
+print("Username: user_account")
+print("Password: user123")

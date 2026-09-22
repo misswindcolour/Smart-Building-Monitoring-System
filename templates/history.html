@@ -5,185 +5,474 @@ Maintenance History - Smart Building Monitoring System
 {% endblock %}
 
 {% block page_title %}
-Historical Maintenance Records
+Maintenance History
 {% endblock %}
 
 {% block page_description %}
-Previous maintenance activities and resolutions
+Historical maintenance activity and resolutions
 {% endblock %}
 
 
 {% block content %}
 
-<div
-    class="
-        p-5
-        sm:p-6
-        lg:p-8
-    "
->
+<div class="p-5 sm:p-6 lg:p-8">
 
-    <div
+
+    <section
         class="
             bg-white
+            dark:bg-gray-900
             rounded-xl
             shadow-sm
-            overflow-x-auto
+            p-6
         "
     >
 
-        <table
-            class="
-                w-full
-                text-left
-                min-w-[1000px]
-            "
-        >
+        <div class="mb-5">
 
-            <thead
+            <h2 class="text-lg font-bold">
+                Resolved Maintenance Records
+            </h2>
+
+            <p
                 class="
-                    bg-gray-50
-                    text-xs
-                    uppercase
+                    text-sm
+                    text-gray-500
+                    dark:text-gray-400
+                    mt-1
+                "
+            >
+                Historical record of reported issues,
+                requesters and Managers who completed resolutions.
+            </p>
+
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table
+                class="
+                    w-full
+                    text-left
+                    min-w-[1000px]
                 "
             >
 
-                <tr>
+                <thead
+                    class="
+                        bg-gray-50
+                        dark:bg-gray-800
+                        text-xs
+                        uppercase
+                    "
+                >
 
-                    <th class="p-4">
-                        Request
-                    </th>
+                    <tr>
 
-                    <th class="p-4">
-                        Building
-                    </th>
+                        <th class="p-3">
+                            Issue
+                        </th>
 
-                    <th class="p-4">
-                        Issue
-                    </th>
+                        <th class="p-3">
+                            Requested By
+                        </th>
 
-                    <th class="p-4">
-                        Requested By
-                    </th>
+                        <th class="p-3">
+                            Building
+                        </th>
 
-                    <th class="p-4">
-                        Resolved By
-                    </th>
+                        <th class="p-3">
+    Request Type
+</th>
 
-                    <th class="p-4">
-                        Resolution
-                    </th>
+                        <th class="p-3">
+                            Priority
+                        </th>
 
-                    <th class="p-4">
-                        Resolution Date
-                    </th>
+                        <th class="p-3">
+                            Resolved By
+                        </th>
 
-                </tr>
+                        <th class="p-3">
+                            Resolution
+                        </th>
 
-            </thead>
+                        <th class="p-3">
+                            Resolution Date
+                        </th>
 
+                    </tr>
 
-            <tbody class="divide-y">
-
-                {% for item in history_logs %}
-
-                <tr class="hover:bg-gray-50">
-
-                    <td class="p-4 font-bold">
-                        #{{ item.original_request_id }}
-                    </td>
-
-
-                    <td class="p-4">
-
-                        {{ item.building_code }}
-
-                        -
-
-                        {{ item.building_name }}
-
-                    </td>
+                </thead>
 
 
-                    <td class="p-4">
+                <tbody
+                    class="
+                        divide-y
+                        dark:divide-gray-700
+                    "
+                >
 
-                        {{ item.issue_details }}
+                    {% for item in history_logs %}
 
-                        {% if item.equipment_name %}
+                        <tr>
 
-                        <p
-                            class="
-                                text-xs
-                                text-gray-500
-                                mt-1
-                            "
-                        >
-                            Equipment:
-                            {{ item.equipment_name }}
-                        </p>
+                            <td class="p-3">
+                                {{ item.issue_details }}
+                            </td>
 
-                        {% endif %}
+                            <td class="p-3 font-medium">
+                                {{ item.requested_by }}
+                            </td>
 
-                    </td>
+                            <td class="p-3">
 
+                                {{ item.building_code }}
+                                -
+                                {{ item.building_name }}
 
-                    <td
-                        class="
-                            p-4
-                            font-medium
-                            text-[#0a5282]
-                        "
-                    >
-                        {{ item.requested_by }}
-                    </td>
+                            </td>
 
+<td class="p-3">
+    {{ item.request_category }}
+</td>
 
-                    <td class="p-4 font-medium">
-                        {{ item.resolved_by }}
-                    </td>
+                            <td class="p-3">
+                                {{ item.priority }}
+                            </td>
 
+                            <td
+                                class="
+                                    p-3
+                                    font-medium
+                                    text-[#0a5282]
+                                "
+                            >
+                                {{ item.resolved_by }}
+                            </td>
 
-                    <td class="p-4">
-                        {{ item.resolution_details }}
-                    </td>
+                            <td class="p-3">
+                                {{ item.resolution_details }}
+                            </td>
 
+                            <td class="p-3 whitespace-nowrap">
+                                {{ item.resolution_date }}
+                            </td>
 
-                    <td
-                        class="
-                            p-4
-                            text-sm
-                        "
-                    >
-                        {{ item.resolution_date }}
-                    </td>
+                        </tr>
 
-                </tr>
+                    {% else %}
 
-                {% else %}
+                        <tr>
 
-                <tr>
+                            <td
+                                colspan="8"
+                                class="
+                                    p-8
+                                    text-center
+                                    text-gray-500
+                                "
+                            >
+                                No maintenance history found.
+                            </td>
 
-                    <td
-                        colspan="7"
-                        class="
-                            p-8
-                            text-center
-                            text-gray-500
-                        "
-                    >
-                        No resolved maintenance records found.
-                    </td>
+                        </tr>
 
-                </tr>
+                    {% endfor %}
 
-                {% endfor %}
+                </tbody>
 
-            </tbody>
+            </table>
 
-        </table>
+        </div>
 
-    </div>
+    </section>
 
 </div>
 
 {% endblock %}
+
+
+
+login.html
+----------
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Smart Building Monitoring System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login-input {
+            transition: all 0.2s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #0a5282;
+            box-shadow: 0 0 0 3px rgba(10, 82, 130, 0.12);
+        }
+
+        .login-button {
+            transition: all 0.2s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(10, 82, 130, 0.25);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .image-panel {
+            background-image: url("{{ url_for('static', filename='background.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (max-width: 767px) {
+            .image-panel {
+                min-height: 260px;
+                background-position: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#0a5282] flex items-center justify-center p-4 md:p-8">
+
+    <!-- Main Login Container -->
+    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+        <div class="flex flex-col md:flex-row min-h-[620px]">
+
+            <!-- ========================================= -->
+            <!-- LEFT SIDE - LOGIN FORM -->
+            <!-- ========================================= -->
+
+            <div class="w-full md:w-1/2 bg-[#fdfdfd] flex items-center">
+
+                <div class="w-full px-8 py-10 sm:px-12 lg:px-16">
+
+                    <!-- Welcome Heading -->
+                    <div class="mb-8">
+
+                        <h1 class="text-4xl sm:text-5xl font-semibold tracking-wide text-gray-900">
+                            WELCOME BACK
+                        </h1>
+
+                        <p class="mt-3 text-gray-500 text-base">
+                            Welcome back! Please enter your details.
+                        </p>
+
+                    </div>
+
+
+                    <!-- ========================================= -->
+                    <!-- FLASH MESSAGES -->
+                    <!-- ========================================= -->
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+
+                        {% if messages %}
+
+                            <div class="mb-6 space-y-3">
+
+                                {% for category, message in messages %}
+
+                                    <div
+                                        class="p-3 rounded-lg text-sm
+                                        {% if category == 'error' %}
+                                            bg-red-100 text-red-700 border border-red-200
+                                        {% else %}
+                                            bg-green-100 text-green-700 border border-green-200
+                                        {% endif %}"
+                                    >
+
+                                        {{ message }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endwith %}
+
+
+                    <!-- ========================================= -->
+                    <!-- LOGIN FORM -->
+                    <!-- ========================================= -->
+
+                    <form method="POST" class="space-y-5">
+
+                        <!-- Username -->
+                        <div>
+
+                            <label
+                                for="username"
+                                class="block text-sm font-semibold text-gray-800 mb-2"
+                            >
+                                Username
+                            </label>
+
+                            <input
+                                id="username"
+                                type="text"
+                                name="username"
+                                required
+                                autocomplete="username"
+                                placeholder="Enter your username"
+                                class="login-input w-full h-12 px-4 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                            >
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div>
+
+                            <label
+                                for="password"
+                                class="block text-sm font-semibold text-gray-800 mb-2"
+                            >
+                                Password
+                            </label>
+
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                required
+                                autocomplete="current-password"
+                                placeholder="Enter your password"
+                                class="login-input w-full h-12 px-4 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                            >
+
+                        </div>
+
+
+                        <!-- Remember Me / Secure Access -->
+                        <div class="flex items-center justify-between pt-1">
+
+                            <label class="flex items-center gap-2 cursor-pointer">
+
+                                <input
+                                    type="checkbox"
+                                    name="remember"
+                                    class="w-4 h-4 accent-[#0a5282]"
+                                >
+
+                                <span class="text-sm text-gray-700">
+                                    Remember me
+                                </span>
+
+                            </label>
+
+                            <span class="text-sm text-gray-500">
+                                Secure access
+                            </span>
+
+                        </div>
+
+
+                        <!-- Login Button -->
+                        <button
+                            type="submit"
+                            class="login-button w-full h-12 bg-[#0a5282] hover:bg-[#083f63] text-white font-semibold rounded-lg"
+                        >
+                            Sign in
+                        </button>
+
+                    </form>
+
+
+                    <!-- ========================================= -->
+                    <!-- PROTOTYPE ACCOUNT INFORMATION -->
+                    <!-- ========================================= -->
+
+                    <div class="mt-8">
+
+                        <div class="border-t border-gray-200 pt-5">
+
+                            <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-3">
+                                Prototype Access
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+
+                                    <p class="text-xs text-gray-500">
+                                        Administrator
+                                    </p>
+
+                                    <p class="text-sm font-semibold text-gray-800 mt-1">
+                                        manager_account
+                                    </p>
+
+                                </div>
+
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+
+                                    <p class="text-xs text-gray-500">
+                                        User
+                                    </p>
+
+                                    <p class="text-sm font-semibold text-gray-800 mt-1">
+                                        user_account
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- RIGHT SIDE - BACKGROUND IMAGE -->
+            <!-- ========================================= -->
+
+            <div
+                class="image-panel w-full md:w-1/2 min-h-[300px] md:min-h-full"
+                aria-label="Smart Building Monitoring System"
+            >
+
+                <div class="w-full h-full bg-black/5"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
