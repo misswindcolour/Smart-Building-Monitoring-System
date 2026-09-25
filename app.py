@@ -2515,40 +2515,16 @@ def logout():
 # HEALTH CHECK
 # ============================================================
 
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 @app.route("/health")
 def health():
-
-    db = None
-
-    try:
-
-        db = get_db()
-
-        with db.cursor() as cursor:
-
-            cursor.execute(
-                "SELECT 1 AS ok"
-            )
-
-            cursor.fetchone()
-
-        return jsonify({
-            "success": True,
-            "database": "connected"
-        })
-
-    except Exception as exc:
-
-        return jsonify({
-            "success": False,
-            "database": "unavailable",
-            "message": str(exc)
-        }), 500
-
-    finally:
-
-        if db:
-            db.close()
+    """Lightweight health check for Render."""
+    return jsonify({
+        "success": True,
+        "status": "healthy"
+    }), 200
 
 
 # ============================================================
