@@ -67,7 +67,10 @@
         }
 
 
-        /* Dark mode only. Light mode styles remain unchanged. */
+        /* =====================================================
+           DARK MODE
+           ===================================================== */
+
         html.dark,
         html.dark body,
         html.dark main,
@@ -133,7 +136,11 @@
             border-color: #3b5b70 !important;
         }
 
-        /* Keep the logo area and top navigation visually aligned. */
+
+        /* =====================================================
+           LOGO / HEADER
+           ===================================================== */
+
         .sidebar-logo-area {
             background-color: #ffffff !important;
             min-height: 104px;
@@ -153,7 +160,11 @@
             background-color: #0a5282;
         }
 
-        /* Dark-mode dashboard cards */
+
+        /* =====================================================
+           DARK MODE DASHBOARD CARDS
+           ===================================================== */
+
         html.dark .bg-gray-50,
         html.dark .bg-gray-100 {
             background-color: #16394d !important;
@@ -180,7 +191,11 @@
             background-color: #173f32 !important;
         }
 
-        /* Account label */
+
+        /* =====================================================
+           ACCOUNT LABEL
+           ===================================================== */
+
         html.dark .logged-in-account {
             color: #111827 !important;
             background-color: #dbe7ee !important;
@@ -190,22 +205,27 @@
             color: #111827 !important;
         }
 
-/* =====================================================
-   SIDEBAR NAVIGATION HOVER
-   ===================================================== */
 
-.sidebar-nav a {
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-}
+        /* =====================================================
+           SIDEBAR NAVIGATION HOVER
+           ===================================================== */
 
-.sidebar-nav a:hover,
-.sidebar-nav a:focus-visible {
-    background-color: #083f63 !important;
-}
+        .sidebar-nav a {
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
 
-        /* Dark mode status and alert text */
+        .sidebar-nav a:hover,
+        .sidebar-nav a:focus-visible {
+            background-color: #083f63 !important;
+        }
+
+
+        /* =====================================================
+           DARK MODE STATUS / ALERT TEXT
+           ===================================================== */
+
         html.dark .text-red-600,
         html.dark .text-red-700,
         html.dark .text-red-800,
@@ -225,7 +245,7 @@
             color: #9ce8bd !important;
         }
 
-        html.dark a.text-[#0a5282],
+        html.dark a.text-\[\#0a5282\],
         html.dark a.text-blue-600,
         html.dark a.text-blue-700 {
             color: #9edbff !important;
@@ -240,69 +260,67 @@
             color: #ffffff !important;
         }
 
-/* =====================================================
-   CUSTOM LINK AND STATUS COLOURS
-   ===================================================== */
 
-/* Dashboard navigation links */
-.dashboard-action-link {
-    color: #71b2de !important;
-}
-
-/* Manage buttons */
-.manage-button {
-    color: #ffffff !important;
-}
-
-/* Equipment Working status - light mode */
-.working-status {
-    color: #166534 !important;
-}
-
-/* =====================================================
-   MOBILE NAVIGATION DROPDOWN - GUSTO COLOUR
-   ===================================================== */
-
-.mobile-navigation-dropdown {
-    background-color: #0a5282 !important;
-}
-
-.mobile-navigation-dropdown .mobile-nav-link {
-    color: #ffffff !important;
-}
-
-.mobile-navigation-dropdown .mobile-nav-link:hover,
-.mobile-navigation-dropdown .mobile-nav-link:focus-visible {
-    background-color: #083f63 !important;
-}
-/* =====================================================
-   DARK MODE
-   ===================================================== */
-
-/* Equipment Working status - dark mode */
-html.dark .working-status {
-    color: #166534 !important;
-}
-
-/* Sensor status text - dark mode */
-html.dark .sensor-status-text {
-    color: #111827 !important;
-}
-
-/* Sensor Maintenance status - dark mode */
-html.dark .sensor-maintenance-status {
-    color: #111827 !important;
-}
-
-/* Dashboard action links stay the same colour in dark mode */
-html.dark .dashboard-action-link {
-    color: #71b2de !important;
-}
         /* =====================================================
-           CUSTOM STATUS / LINK COLOURS
+           CUSTOM LINK / STATUS COLOURS
            ===================================================== */
 
-        /* View Sensors */
+        .dashboard-action-link {
+            color: #71b2de !important;
+        }
+
+        .manage-button {
+            color: #ffffff !important;
+        }
+
+        .working-status {
+            color: #166534 !important;
+        }
+
+
+        /* =====================================================
+           MOBILE NAVIGATION DROPDOWN
+           ===================================================== */
+
+        .mobile-navigation-dropdown {
+            background-color: #0a5282 !important;
+        }
+
+        .mobile-navigation-dropdown .mobile-nav-link {
+            color: #ffffff !important;
+        }
+
+        .mobile-navigation-dropdown .mobile-nav-link:hover,
+        .mobile-navigation-dropdown .mobile-nav-link:focus-visible {
+            background-color: #083f63 !important;
+        }
+
+
+        /* =====================================================
+           DARK MODE STATUS / LINKS
+           ===================================================== */
+
+        html.dark .working-status {
+            color: #9ce8bd !important;
+        }
+
+        html.dark .sensor-status-text {
+            color: #111827 !important;
+        }
+
+        html.dark .sensor-maintenance-status {
+            color: #111827 !important;
+        }
+
+        html.dark .dashboard-action-link {
+            color: #71b2de !important;
+        }
+
+
+        /* =====================================================
+           VIEW SENSOR LINK
+           ===================================================== */
+
         .view-sensors-link {
             color: #71b2de !important;
         }
@@ -311,26 +329,14 @@ html.dark .dashboard-action-link {
             text-decoration: underline;
         }
 
-        /* Working status */
-        .working-status {
-            color: #166534 !important;
-        }
-
-        /* Keep Working readable in dark mode */
-        html.dark .working-status {
-            color: #9ce8bd !important;
-        }
 
         /* =====================================================
-   SENSOR STATUS TEXT - DARK MODE
-   ===================================================== */
+           SENSOR STATUS TEXT - DARK MODE
+           ===================================================== */
 
-/* Keep existing light-mode colours unchanged */
-
-/* Make all sensor status text dark in dark mode */
-html.dark .sensor-status-dark {
-    color: #111827 !important;
-}
+        html.dark .sensor-status-dark {
+            color: #111827 !important;
+        }
 
     </style>
 
@@ -339,6 +345,11 @@ html.dark .sensor-status-dark {
         tailwind.config = {
             darkMode: "class"
         };
+
+
+        /* =====================================================
+           APPLY DARK MODE BEFORE PAGE DISPLAY
+           ===================================================== */
 
         function applyDarkMode() {
 
@@ -351,6 +362,7 @@ html.dark .sensor-status-dark {
                 "dark",
                 enabled
             );
+
         }
 
         applyDarkMode();
@@ -516,9 +528,6 @@ html.dark .sensor-status-dark {
             </a>
 
 
-
-
-
             <a
                 href="{{ url_for('logout') }}"
                 class="
@@ -538,218 +547,210 @@ html.dark .sensor-status-dark {
         </nav>
 
     </aside>
-<!-- =====================================================
-     RESPONSIVE MOBILE/TABLET TOP NAVIGATION
-     MENU + LOGO LEFT | ACCOUNT RIGHT
-     ===================================================== -->
-
-<div
-    class="
-        lg:hidden
-        relative
-        flex
-        items-center
-        justify-between
-        gap-3
-        px-3
-        sm:px-6
-        py-4
-        bg-white
-        dark:bg-gray-900
-        border-b
-        border-gray-200
-        dark:border-gray-700
-    "
->
-
-    <!-- =================================================
-         LEFT: MENU + GUSTO LOGO
-         ================================================= -->
-
-    <div class="flex items-center gap-3 min-w-0">
-
-        <!-- Menu button -->
-        <button
-            type="button"
-            id="mobileMenuButton"
-            onclick="toggleMobileNavigation()"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-            class="
-                flex
-                items-center
-                justify-center
-                shrink-0
-                text-gray-700
-                dark:text-gray-200
-                hover:text-[#0a5282]
-                dark:hover:text-blue-300
-                transition
-            "
-        >
-
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <line x1="4" y1="6" x2="20" y2="6"></line>
-                <line x1="4" y1="12" x2="20" y2="12"></line>
-                <line x1="4" y1="18" x2="20" y2="18"></line>
-            </svg>
-
-        </button>
 
 
-        <!-- GUSTO logo -->
-        <div class="flex items-center min-w-0">
-
-            <img
-                id="mobileLogo"
-                src="{{ url_for('static', filename='logo.png') }}"
-                data-light-logo="{{ url_for('static', filename='logo.png') }}"
-                data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}"
-                alt="GUSTO Smart Building Monitoring System"
-                class="
-                    w-28
-                    sm:w-40
-                    h-auto
-                    max-h-14
-                    object-contain
-                "
-            >
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         RIGHT: LOGGED-IN ACCOUNT
-         ================================================= -->
-
-    <div class="flex items-center justify-end min-w-0">
-
-        <div
-            class="
-                logged-in-account
-                text-[10px]
-                sm:text-sm
-                text-gray-600
-                bg-gray-50
-                border
-                border-gray-200
-                rounded-lg
-                px-2
-                sm:px-4
-                py-2
-                text-right
-                whitespace-nowrap
-            "
-        >
-
-            <span>Logged in as</span>
-
-            <strong class="text-gray-900 ml-1">
-                {{ username }}
-            </strong>
-
-            <span class="ml-1">
-                ({{ role }})
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         MOBILE NAVIGATION DROPDOWN
-         ================================================= -->
+    <!-- =====================================================
+         RESPONSIVE MOBILE/TABLET TOP NAVIGATION
+         ===================================================== -->
 
     <div
-        id="mobileNavigationDropdown"
         class="
-            hidden
-            absolute
-            top-full
-            left-3
-            right-3
-            sm:left-6
-            sm:right-6
-            z-50
-            mobile-navigation-dropdown
-            border
-            border-[#083f63]
-            rounded-lg
-            shadow-lg
-            overflow-hidden
+            lg:hidden
+            relative
+            flex
+            items-center
+            justify-between
+            gap-3
+            px-3
+            sm:px-6
+            py-4
+            bg-white
+            dark:bg-gray-900
+            border-b
+            border-gray-200
+            dark:border-gray-700
         "
     >
 
-        <nav class="flex flex-col py-2">
+        <div class="flex items-center gap-3 min-w-0">
 
-            <a
-                href="{% if role == 'Manager' %}{{ url_for('manager_dashboard') }}{% else %}{{ url_for('user_dashboard') }}{% endif %}"
-                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
-            >
-                Dashboard
-            </a>
-
-            <a
-                href="{{ url_for('equipment_page') }}"
-                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
-            >
-                Equipment
-            </a>
-
-            <a
-                href="{{ url_for('sensors_page') }}"
-                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
-            >
-                Sensors
-            </a>
-
-            <a
-                href="{{ url_for('maintenance_page') }}"
-                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
-            >
-                Maintenance
-            </a>
-
-            <a
-                href="{{ url_for('history_page') }}"
-                class="mobile-nav-link px-4 py-3 text-sm text-white transition"
-            >
-                History
-            </a>
-
-            <a
-                href="{{ url_for('logout') }}"
+            <button
+                type="button"
+                id="mobileMenuButton"
+                onclick="toggleMobileNavigation()"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
                 class="
-                    mobile-nav-link
-                    px-4
-                    py-3
-                    text-sm
-                    text-red-200
-                    hover:bg-red-700
+                    flex
+                    items-center
+                    justify-center
+                    shrink-0
+                    text-gray-700
+                    dark:text-gray-200
+                    hover:text-[#0a5282]
+                    dark:hover:text-blue-300
                     transition
                 "
             >
-                Logout
-            </a>
 
-        </nav>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+
+            </button>
+
+
+            <div class="flex items-center min-w-0">
+
+                <img
+                    id="mobileLogo"
+                    src="{{ url_for('static', filename='logo.png') }}"
+                    data-light-logo="{{ url_for('static', filename='logo.png') }}"
+                    data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}"
+                    alt="GUSTO Smart Building Monitoring System"
+                    class="
+                        w-28
+                        sm:w-40
+                        h-auto
+                        max-h-14
+                        object-contain
+                    "
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="flex items-center justify-end min-w-0">
+
+            <div
+                class="
+                    logged-in-account
+                    text-[10px]
+                    sm:text-sm
+                    text-gray-600
+                    bg-gray-50
+                    border
+                    border-gray-200
+                    rounded-lg
+                    px-2
+                    sm:px-4
+                    py-2
+                    text-right
+                    whitespace-nowrap
+                "
+            >
+
+                <span data-i18n="Logged in as">
+                    Logged in as
+                </span>
+
+                <strong class="text-gray-900 ml-1">
+                    {{ username }}
+                </strong>
+
+                <span class="ml-1">
+                    ({{ role }})
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE NAVIGATION DROPDOWN -->
+
+        <div
+            id="mobileNavigationDropdown"
+            class="
+                hidden
+                absolute
+                top-full
+                left-3
+                right-3
+                sm:left-6
+                sm:right-6
+                z-50
+                mobile-navigation-dropdown
+                border
+                border-[#083f63]
+                rounded-lg
+                shadow-lg
+                overflow-hidden
+            "
+        >
+
+            <nav class="flex flex-col py-2">
+
+                <a
+                    href="{% if role == 'Manager' %}{{ url_for('manager_dashboard') }}{% else %}{{ url_for('user_dashboard') }}{% endif %}"
+                    class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="{{ url_for('equipment_page') }}"
+                    class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+                >
+                    Equipment
+                </a>
+
+                <a
+                    href="{{ url_for('sensors_page') }}"
+                    class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+                >
+                    Sensors
+                </a>
+
+                <a
+                    href="{{ url_for('maintenance_page') }}"
+                    class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+                >
+                    Maintenance
+                </a>
+
+                <a
+                    href="{{ url_for('history_page') }}"
+                    class="mobile-nav-link px-4 py-3 text-sm text-white transition"
+                >
+                    History
+                </a>
+
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="
+                        mobile-nav-link
+                        px-4
+                        py-3
+                        text-sm
+                        text-red-200
+                        hover:bg-red-700
+                        transition
+                    "
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
 
     </div>
 
-</div>
 
     <!-- =====================================================
          MAIN CONTENT
@@ -831,15 +832,19 @@ html.dark .sensor-status-dark {
                         py-2
                     "
                 >
-                    <span>Logged in as</span>
 
-<strong class="text-gray-900 ml-1">
-    {{ username }}
-</strong>
+                    <span data-i18n="Logged in as">
+                        Logged in as
+                    </span>
+
+                    <strong class="text-gray-900 ml-1">
+                        {{ username }}
+                    </strong>
 
                     <span class="ml-1">
                         ({{ role }})
                     </span>
+
                 </div>
 
 
@@ -940,7 +945,9 @@ html.dark .sensor-status-dark {
         </header>
 
 
-        <!-- FLASH MESSAGES -->
+        <!-- =====================================================
+             FLASH MESSAGES
+             ===================================================== -->
 
         <div
             class="
@@ -1008,267 +1015,768 @@ html.dark .sensor-status-dark {
 
 <script>
 
+/* ============================================================
+   TRANSLATION SYSTEM
+   ============================================================
+
+   English is the permanent source language.
+
+   The system never tries to translate the currently displayed
+   Burmese/Italian text. Each text node and translatable
+   attribute keeps its original English value in memory.
+
+   This allows:
+
+       English → Burmese
+       Burmese → Italian
+       Italian → English
+
+   without refreshing the page.
+   ============================================================ */
+
+
+/* ============================================================
+   TRANSLATION DICTIONARY
+   ============================================================ */
+
 const contentTranslations = {
 
     my: {
-        "Dashboard":"ဒက်ရှ်ဘုတ်",
-        "Equipment":"ပစ္စည်းကိရိယာများ",
-        "Sensors":"အာရုံခံကိရိယာများ",
-        "Maintenance":"ပြုပြင်ထိန်းသိမ်းမှု",
-        "History":"မှတ်တမ်း",
-        "Logout":"ထွက်ရန်",
-        "Dark Mode":"အမှောင်မုဒ်",
-        "Light Mode":"အလင်းမုဒ်",
-        "Active Equipment Alerts":"လက်ရှိပစ္စည်း သတိပေးချက်များ",
-        "Building Overview":"အဆောက်အအုံ အကျဉ်းချုပ်",
-        "Equipment Units":"ပစ္စည်းယူနစ်များ",
-        "Faulty Units":"ချို့ယွင်းယူနစ်များ",
-        "Capacity":"ဆံ့နိုင်မှု",
-        "Environmental Alerts":"ပတ်ဝန်းကျင် သတိပေးချက်များ",
-        "Air Quality":"လေထုအရည်အသွေး",
-        "Temperature Tracking":"အပူချိန် မှတ်တမ်း",
-        "Historical temperature readings":"အပူချိန် ဖတ်ရှုမှုမှတ်တမ်းများ",
-        "All Buildings":"အဆောက်အအုံအားလုံး",
-        "Search":"ရှာဖွေရန်",
-        "Filter":"စစ်ထုတ်ရန်",
-        "Status":"အခြေအနေ",
-        "Building":"အဆောက်အအုံ",
-        "Submit":"တင်သွင်းရန်",
-        "Save":"သိမ်းရန်",
-        "Cancel":"ပယ်ဖျက်ရန်",
-        "View":"ကြည့်ရန်",
-        "Edit":"ပြင်ဆင်ရန်",
-        "Delete":"ဖျက်ရန်",
-        "Create Request":"တောင်းဆိုချက် ဖန်တီးရန်",
-        "Maintenance Requests":"ပြုပြင်ထိန်းသိမ်းမှု တောင်းဆိုချက်များ",
-        "Maintenance History":"ပြုပြင်ထိန်းသိမ်းမှု မှတ်တမ်း",
-        "No results found":"ရလဒ်မတွေ့ပါ",
-        "View Sensors":"ဆင်ဆာများကို ကြည့်ရန်",
-        "Faulty":"ချို့ယွင်းနေသည်",
-        "Urgent":"အရေးပေါ်",
-        "Science":"သိပ္ပံ",
-        "Computing":"ကွန်ပျူတာ",
-        "Main Hall":"အဓိကခန်းမ",
-        "Library":"စာကြည့်တိုက်",
-        "Equipment Health":"ပစ္စည်းအခြေအနေ",
-        "Overview":"အကျဉ်းချုပ်",
-        "Description":"ဖော်ပြချက်",
-        "Priority":"ဦးစားပေးမှု",
-        "Actions":"လုပ်ဆောင်ချက်များ"
+
+        "Dashboard": "ဒက်ရှ်ဘုတ်",
+        "User Dashboard": "အသုံးပြုသူ ဒက်ရှ်ဘုတ်",
+        "Manager Control Center": "မန်နေဂျာ ထိန်းချုပ်ရေးစင်တာ",
+
+        "Equipment": "ပစ္စည်းကိရိယာများ",
+        "Sensors": "အာရုံခံကိရိယာများ",
+        "Maintenance": "ပြုပြင်ထိန်းသိမ်းမှု",
+        "History": "မှတ်တမ်း",
+        "Logout": "ထွက်ရန်",
+
+        "Dark Mode": "အမှောင်မုဒ်",
+        "Light Mode": "အလင်းမုဒ်",
+
+        "Buildings": "အဆောက်အအုံများ",
+        "Building": "အဆောက်အအုံ",
+        "All Buildings": "အဆောက်အအုံအားလုံး",
+        "Building Overview": "အဆောက်အအုံ အကျဉ်းချုပ်",
+
+        "Equipment Units": "ပစ္စည်းယူနစ်များ",
+        "Faulty Units": "ချို့ယွင်းယူနစ်များ",
+        "Active Maintenance": "လက်ရှိ ပြုပြင်ထိန်းသိမ်းမှု",
+        "Equipment Inventory": "ပစ္စည်းကိရိယာ စာရင်း",
+        "Equipment Health": "ပစ္စည်းကိရိယာ အခြေအနေ",
+        "Equipment Type": "ပစ္စည်းအမျိုးအစား",
+        "Total Qty": "စုစုပေါင်းအရေအတွက်",
+        "Faulty Qty": "ချို့ယွင်းအရေအတွက်",
+
+        "Active Equipment Alerts": "လက်ရှိပစ္စည်း သတိပေးချက်များ",
+        "View Equipment": "ပစ္စည်းကိရိယာများကို ကြည့်ရန်",
+
+        "Environmental Alerts": "ပတ်ဝန်းကျင် သတိပေးချက်များ",
+        "View Sensors": "အာရုံခံကိရိယာများကို ကြည့်ရန်",
+
+        "Sensor Filters": "အာရုံခံကိရိယာ စစ်ထုတ်မှုများ",
+        "Sensor Type": "အာရုံခံကိရိယာ အမျိုးအစား",
+        "All Sensor Types": "အာရုံခံကိရိယာ အမျိုးအစားအားလုံး",
+
+        "Temperature": "အပူချိန်",
+        "Humidity": "စိုထိုင်းဆ",
+        "Air Quality": "လေထုအရည်အသွေး",
+
+        "Temperature Tracking": "အပူချိန် မှတ်တမ်း",
+        "Historical temperature readings": "အပူချိန် ဖတ်ရှုမှုမှတ်တမ်းများ",
+
+        "Prototype Sensor Thresholds":
+            "ရှေ့ပြေးအာရုံခံကိရိယာ သတ်မှတ်ချက်များ",
+
+        "These thresholds are prototype monitoring values for this academic system and should not be treated as official building safety limits.":
+            "ဤသတ်မှတ်ချက်များသည် ဤပညာရေးစနစ်အတွက် ရှေ့ပြေးစောင့်ကြည့်မှုတန်ဖိုးများသာဖြစ်ပြီး တရားဝင်အဆောက်အအုံ ဘေးကင်းရေးကန့်သတ်ချက်များအဖြစ် မယူဆသင့်ပါ။",
+
+        "Sensor": "အာရုံခံကိရိယာ",
+        "Normal Range": "ပုံမှန်အတိုင်းအတာ",
+        "Warning": "သတိပေးချက်",
+        "Critical": "အရေးကြီး",
+        "Normal": "ပုံမှန်",
+        "Online": "အွန်လိုင်း",
+        "Offline": "အော့ဖ်လိုင်း",
+
+        "Maintenance Requests": "ပြုပြင်ထိန်းသိမ်းမှု တောင်းဆိုချက်များ",
+        "Maintenance History": "ပြုပြင်ထိန်းသိမ်းမှု မှတ်တမ်း",
+        "Submit a Request": "တောင်းဆိုချက် တင်သွင်းရန်",
+        "Submit Request": "တောင်းဆိုချက် တင်သွင်းရန်",
+
+        "Request": "တောင်းဆိုချက်",
+        "Request Type": "တောင်းဆိုချက် အမျိုးအစား",
+        "Requested By": "တောင်းဆိုသူ",
+        "Priority": "ဦးစားပေးမှု",
+        "Status": "အခြေအနေ",
+        "Details": "အသေးစိတ်",
+        "Actions": "လုပ်ဆောင်ချက်များ",
+        "Manage": "စီမံရန်",
+
+        "Equipment Maintenance Requests":
+            "ပစ္စည်းကိရိယာ ပြုပြင်ထိန်းသိမ်းမှု တောင်းဆိုချက်များ",
+
+        "Building Requests": "အဆောက်အအုံ တောင်းဆိုချက်များ",
+
+        "Resolved Maintenance Records":
+            "ဖြေရှင်းပြီးသော ပြုပြင်ထိန်းသိမ်းမှု မှတ်တမ်းများ",
+
+        "Historical record of reported issues, requesters and Managers who completed resolutions.":
+            "တင်ပြထားသော ပြဿနာများ၊ တောင်းဆိုသူများနှင့် ဖြေရှင်းမှုပြီးစီးစေသော မန်နေဂျာများ၏ သမိုင်းမှတ်တမ်း။",
+
+        "Issue": "ပြဿနာ",
+        "Resolved By": "ဖြေရှင်းသူ",
+        "Resolution": "ဖြေရှင်းချက်",
+        "Resolution Date": "ဖြေရှင်းသည့်ရက်စွဲ",
+
+        "Capacity": "ဆံ့နိုင်မှု",
+        "Overview": "အကျဉ်းချုပ်",
+        "Description": "ဖော်ပြချက်",
+
+        "Search": "ရှာဖွေရန်",
+        "Filter": "စစ်ထုတ်ရန်",
+        "All Statuses": "အခြေအနေအားလုံး",
+
+        "Save": "သိမ်းရန်",
+        "Cancel": "ပယ်ဖျက်ရန်",
+        "View": "ကြည့်ရန်",
+        "Edit": "ပြင်ဆင်ရန်",
+        "Delete": "ဖျက်ရန်",
+
+        "Create Request": "တောင်းဆိုချက် ဖန်တီးရန်",
+
+        "No results found": "ရလဒ်မတွေ့ပါ",
+
+        "Faulty": "ချို့ယွင်းနေသည်",
+        "Working": "အလုပ်လုပ်နေသည်",
+        "In Progress": "လုပ်ဆောင်နေသည်",
+        "Resolved": "ဖြေရှင်းပြီး",
+        "Pending": "စောင့်ဆိုင်းနေသည်",
+        "Urgent": "အရေးပေါ်",
+        "High": "မြင့်",
+        "Maintenance": "ပြုပြင်ထိန်းသိမ်းမှု",
+
+        "Science": "သိပ္ပံ",
+        "Computing": "ကွန်ပျူတာ",
+        "Main Hall": "အဓိကခန်းမ",
+        "Library": "စာကြည့်တိုက်",
+
+        "Logged in as": "ဝင်ရောက်ထားသူ",
+
+        "User Access": "အသုံးပြုသူ ဝင်ရောက်ခွင့်",
+
+        "You can monitor equipment and environmental sensors, submit maintenance or building requests, and view maintenance history.":
+            "ပစ္စည်းကိရိယာများနှင့် ပတ်ဝန်းကျင်အာရုံခံကိရိယာများကို စောင့်ကြည့်နိုင်ပြီး ပြုပြင်ထိန်းသိမ်းမှု သို့မဟုတ် အဆောက်အအုံ တောင်းဆိုချက်များ တင်သွင်းနိုင်ကာ ပြုပြင်ထိန်းသိမ်းမှုမှတ်တမ်းများကို ကြည့်ရှုနိုင်ပါသည်။",
+
+        "Managers are responsible for updating and resolving service requests.":
+            "ဝန်ဆောင်မှုတောင်းဆိုချက်များကို အပ်ဒိတ်လုပ်ခြင်းနှင့် ဖြေရှင်းခြင်းများကို မန်နေဂျာများက တာဝန်ယူပါသည်။",
+
+        "My Active Requests": "ကျွန်ုပ်၏ လက်ရှိတောင်းဆိုချက်များ",
+        "My Recent Requests": "ကျွန်ုပ်၏ လတ်တလောတောင်းဆိုချက်များ",
+
+        "No active environmental alerts.":
+            "လက်ရှိပတ်ဝန်းကျင် သတိပေးချက်များ မရှိပါ။",
+
+        "You have not submitted any requests yet.":
+            "သင်သည် တောင်းဆိုချက်တစ်ခုမျှ မတင်သွင်းရသေးပါ။",
+
+        "Request Type": "တောင်းဆိုချက် အမျိုးအစား",
+        "Register New Equipment": "ပစ္စည်းကိရိယာအသစ် မှတ်ပုံတင်ရန်",
+
+        "Environmental Sensor Monitoring":
+            "ပတ်ဝန်းကျင် အာရုံခံကိရိယာ စောင့်ကြည့်ခြင်း",
+
+        "Temperature, humidity and air-quality monitoring":
+            "အပူချိန်၊ စိုထိုင်းဆနှင့် လေထုအရည်အသွေး စောင့်ကြည့်ခြင်း",
+
+        "Service requests, maintenance workflow and resolution":
+            "ဝန်ဆောင်မှုတောင်းဆိုချက်များ၊ ပြုပြင်ထိန်းသိမ်းမှုလုပ်ငန်းစဉ်နှင့် ဖြေရှင်းချက်များ",
+
+        "Historical maintenance activity and resolutions":
+            "ပြုပြင်ထိန်းသိမ်းမှု လုပ်ဆောင်ချက်များနှင့် ဖြေရှင်းချက်များ၏ မှတ်တမ်း",
+
+        "Equipment monitoring and status management":
+            "ပစ္စည်းကိရိယာ စောင့်ကြည့်ခြင်းနှင့် အခြေအနေ စီမံခန့်ခွဲခြင်း",
+
+        "Smart Building monitoring and service requests":
+            "Smart Building စောင့်ကြည့်ခြင်းနှင့် ဝန်ဆောင်မှုတောင်းဆိုချက်များ"
+
     },
 
+
     it: {
-        "Dashboard":"Dashboard",
-        "Equipment":"Attrezzatura",
-        "Sensors":"Sensori",
-        "Maintenance":"Manutenzione",
-        "History":"Cronologia",
-        "Logout":"Esci",
-        "Dark Mode":"Modalità scura",
-        "Light Mode":"Modalità chiara",
-        "Active Equipment Alerts":"Avvisi attivi delle apparecchiature",
-        "Building Overview":"Panoramica degli edifici",
-        "Equipment Units":"Unità apparecchiature",
-        "Faulty Units":"Unità guaste",
-        "Capacity":"Capacità",
-        "Environmental Alerts":"Avvisi ambientali",
-        "Air Quality":"Qualità dell'aria",
-        "Temperature Tracking":"Monitoraggio della temperatura",
-        "Historical temperature readings":"Letture storiche della temperatura",
-        "All Buildings":"Tutti gli edifici",
-        "Search":"Cerca",
-        "Filter":"Filtra",
-        "Status":"Stato",
-        "Building":"Edificio",
-        "Submit":"Invia",
-        "Save":"Salva",
-        "Cancel":"Annulla",
-        "View":"Visualizza",
-        "Edit":"Modifica",
-        "Delete":"Elimina",
-        "Create Request":"Crea richiesta",
-        "Maintenance Requests":"Richieste di manutenzione",
-        "Maintenance History":"Cronologia della manutenzione",
-        "No results found":"Nessun risultato trovato",
-        "View Sensors":"Visualizza sensori",
-        "Faulty":"Guasto",
-        "Urgent":"Urgente",
-        "Science":"Scienze",
-        "Computing":"Informatica",
-        "Main Hall":"Sala principale",
-        "Library":"Biblioteca",
-        "Equipment Health":"Stato delle apparecchiature",
-        "Overview":"Panoramica",
-        "Description":"Descrizione",
-        "Priority":"Priorità",
-        "Actions":"Azioni"
+
+        "Dashboard": "Dashboard",
+        "User Dashboard": "Dashboard utente",
+        "Manager Control Center": "Centro di controllo del manager",
+
+        "Equipment": "Attrezzatura",
+        "Sensors": "Sensori",
+        "Maintenance": "Manutenzione",
+        "History": "Cronologia",
+        "Logout": "Esci",
+
+        "Dark Mode": "Modalità scura",
+        "Light Mode": "Modalità chiara",
+
+        "Buildings": "Edifici",
+        "Building": "Edificio",
+        "All Buildings": "Tutti gli edifici",
+        "Building Overview": "Panoramica degli edifici",
+
+        "Equipment Units": "Unità apparecchiature",
+        "Faulty Units": "Unità guaste",
+        "Active Maintenance": "Manutenzione attiva",
+        "Equipment Inventory": "Inventario delle apparecchiature",
+        "Equipment Health": "Stato delle apparecchiature",
+        "Equipment Type": "Tipo di apparecchiatura",
+        "Total Qty": "Quantità totale",
+        "Faulty Qty": "Quantità guasta",
+
+        "Active Equipment Alerts":
+            "Avvisi attivi delle apparecchiature",
+
+        "View Equipment": "Visualizza apparecchiature",
+
+        "Environmental Alerts": "Avvisi ambientali",
+        "View Sensors": "Visualizza sensori",
+
+        "Sensor Filters": "Filtri sensori",
+        "Sensor Type": "Tipo di sensore",
+        "All Sensor Types": "Tutti i tipi di sensore",
+
+        "Temperature": "Temperatura",
+        "Humidity": "Umidità",
+        "Air Quality": "Qualità dell'aria",
+
+        "Temperature Tracking":
+            "Monitoraggio della temperatura",
+
+        "Historical temperature readings":
+            "Letture storiche della temperatura",
+
+        "Prototype Sensor Thresholds":
+            "Soglie dei sensori prototipo",
+
+        "These thresholds are prototype monitoring values for this academic system and should not be treated as official building safety limits.":
+            "Queste soglie sono valori di monitoraggio prototipali per questo sistema accademico e non devono essere considerate limiti ufficiali di sicurezza degli edifici.",
+
+        "Sensor": "Sensore",
+        "Normal Range": "Intervallo normale",
+        "Warning": "Avviso",
+        "Critical": "Critico",
+        "Normal": "Normale",
+        "Online": "Online",
+        "Offline": "Offline",
+
+        "Maintenance Requests":
+            "Richieste di manutenzione",
+
+        "Maintenance History":
+            "Cronologia della manutenzione",
+
+        "Submit a Request":
+            "Invia una richiesta",
+
+        "Submit Request":
+            "Invia richiesta",
+
+        "Request": "Richiesta",
+        "Request Type": "Tipo di richiesta",
+        "Requested By": "Richiesto da",
+        "Priority": "Priorità",
+        "Status": "Stato",
+        "Details": "Dettagli",
+        "Actions": "Azioni",
+        "Manage": "Gestisci",
+
+        "Equipment Maintenance Requests":
+            "Richieste di manutenzione delle apparecchiature",
+
+        "Building Requests":
+            "Richieste relative agli edifici",
+
+        "Resolved Maintenance Records":
+            "Record di manutenzione risolti",
+
+        "Historical record of reported issues, requesters and Managers who completed resolutions.":
+            "Registro storico dei problemi segnalati, dei richiedenti e dei manager che hanno completato le risoluzioni.",
+
+        "Issue": "Problema",
+        "Resolved By": "Risolto da",
+        "Resolution": "Risoluzione",
+        "Resolution Date": "Data di risoluzione",
+
+        "Capacity": "Capacità",
+        "Overview": "Panoramica",
+        "Description": "Descrizione",
+
+        "Search": "Cerca",
+        "Filter": "Filtra",
+        "All Statuses": "Tutti gli stati",
+
+        "Save": "Salva",
+        "Cancel": "Annulla",
+        "View": "Visualizza",
+        "Edit": "Modifica",
+        "Delete": "Elimina",
+
+        "Create Request": "Crea richiesta",
+
+        "No results found":
+            "Nessun risultato trovato",
+
+        "Faulty": "Guasto",
+        "Working": "Funzionante",
+        "In Progress": "In corso",
+        "Resolved": "Risolto",
+        "Pending": "In attesa",
+        "Urgent": "Urgente",
+        "High": "Alta",
+
+        "Science": "Scienze",
+        "Computing": "Informatica",
+        "Main Hall": "Sala principale",
+        "Library": "Biblioteca",
+
+        "Logged in as": "Accesso effettuato come",
+
+        "User Access": "Accesso utente",
+
+        "You can monitor equipment and environmental sensors, submit maintenance or building requests, and view maintenance history.":
+            "È possibile monitorare le apparecchiature e i sensori ambientali, inviare richieste di manutenzione o relative agli edifici e visualizzare la cronologia della manutenzione.",
+
+        "Managers are responsible for updating and resolving service requests.":
+            "I manager sono responsabili dell'aggiornamento e della risoluzione delle richieste di servizio.",
+
+        "My Active Requests":
+            "Le mie richieste attive",
+
+        "My Recent Requests":
+            "Le mie richieste recenti",
+
+        "No active environmental alerts.":
+            "Nessun avviso ambientale attivo.",
+
+        "You have not submitted any requests yet.":
+            "Non hai ancora inviato alcuna richiesta.",
+
+        "Register New Equipment":
+            "Registra nuova apparecchiatura",
+
+        "Environmental Sensor Monitoring":
+            "Monitoraggio dei sensori ambientali",
+
+        "Temperature, humidity and air-quality monitoring":
+            "Monitoraggio di temperatura, umidità e qualità dell'aria",
+
+        "Service requests, maintenance workflow and resolution":
+            "Richieste di servizio, processo di manutenzione e risoluzione",
+
+        "Historical maintenance activity and resolutions":
+            "Cronologia delle attività di manutenzione e delle risoluzioni",
+
+        "Equipment monitoring and status management":
+            "Monitoraggio delle apparecchiature e gestione dello stato",
+
+        "Smart Building monitoring and service requests":
+            "Monitoraggio dello Smart Building e richieste di servizio"
+
     }
 
 };
 
 
-function translateContent() {
+/* ============================================================
+   NAVIGATION / THEME TRANSLATIONS
+   ============================================================ */
 
-    const lang =
-        localStorage.getItem("smartBuildingLanguage") || "en";
+const languageText = {
 
-    const dict =
+    en: {
+        dashboard: "Dashboard",
+        equipment: "Equipment",
+        sensors: "Sensors",
+        maintenance: "Maintenance",
+        history: "History",
+        dark: "Dark Mode",
+        light: "Light Mode",
+        logout: "Logout"
+    },
+
+    my: {
+        dashboard: "ဒက်ရှ်ဘုတ်",
+        equipment: "ပစ္စည်းများ",
+        sensors: "ဆင်ဆာများ",
+        maintenance: "ပြုပြင်ထိန်းသိမ်းမှု",
+        history: "မှတ်တမ်း",
+        dark: "အမှောင်မုဒ်",
+        light: "အလင်းမုဒ်",
+        logout: "ထွက်မည်"
+    },
+
+    it: {
+        dashboard: "Dashboard",
+        equipment: "Attrezzatura",
+        sensors: "Sensori",
+        maintenance: "Manutenzione",
+        history: "Cronologia",
+        dark: "Modalità scura",
+        light: "Modalità chiara",
+        logout: "Esci"
+    }
+
+};
+
+
+/* ============================================================
+   ORIGINAL VALUE STORAGE
+   ============================================================
+
+   WeakMaps allow every DOM element/text node to remember its
+   original English value without adding unnecessary attributes
+   to the page.
+
+   This is the key fix for:
+
+       Burmese → Italian
+       Italian → Burmese
+       Translation → English
+
+   ============================================================ */
+
+const originalTextNodes = new WeakMap();
+const originalAttributes = new WeakMap();
+
+
+/* ============================================================
+   GET CURRENT LANGUAGE
+   ============================================================ */
+
+function getCurrentLanguage() {
+
+    const stored =
+        localStorage.getItem(
+            "smartBuildingLanguage"
+        );
+
+    return (
+        stored &&
+        contentTranslations[stored] !== undefined
+    )
+        ? stored
+        : "en";
+}
+
+
+/* ============================================================
+   GET TRANSLATION
+   ============================================================ */
+
+function getTranslation(sourceText, lang) {
+
+    if (lang === "en") {
+        return sourceText;
+    }
+
+    const dictionary =
         contentTranslations[lang] || {};
 
-    if (!Object.keys(dict).length) return;
+    return dictionary[sourceText] || sourceText;
+}
 
 
-    const translateValue = (value) => {
+/* ============================================================
+   SAVE ORIGINAL TEXT NODE
+   ============================================================ */
 
-        const trimmed = value.trim();
+function rememberTextNode(node) {
 
-        if (!trimmed) return value;
+    if (!originalTextNodes.has(node)) {
 
-        if (dict[trimmed]) {
-            return value.replace(
-                trimmed,
-                dict[trimmed]
-            );
+        originalTextNodes.set(
+            node,
+            node.nodeValue
+        );
+
+    }
+
+    return originalTextNodes.get(node);
+
+}
+
+
+/* ============================================================
+   TRANSLATE TEXT NODE
+   ============================================================ */
+
+function translateTextNode(node, lang) {
+
+    if (!node || !node.parentElement) {
+        return;
+    }
+
+    const parentTag =
+        node.parentElement.tagName;
+
+    if (
+        parentTag === "SCRIPT" ||
+        parentTag === "STYLE" ||
+        parentTag === "NOSCRIPT"
+    ) {
+        return;
+    }
+
+    const source =
+        rememberTextNode(node);
+
+    if (!source) {
+        return;
+    }
+
+    const trimmed =
+        source.trim();
+
+    if (!trimmed) {
+        return;
+    }
+
+    const translated =
+        getTranslation(
+            trimmed,
+            lang
+        );
+
+    /*
+     * Preserve leading/trailing whitespace while replacing
+     * only the actual translatable text.
+     */
+
+    const leading =
+        source.match(/^\s*/)?.[0] || "";
+
+    const trailing =
+        source.match(/\s*$/)?.[0] || "";
+
+    node.nodeValue =
+        leading +
+        translated +
+        trailing;
+
+}
+
+
+/* ============================================================
+   TRANSLATE ELEMENT ATTRIBUTES
+   ============================================================ */
+
+function translateElementAttributes(
+    element,
+    lang
+) {
+
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+        return;
+    }
+
+    const attributes = [
+        "placeholder",
+        "title",
+        "aria-label"
+    ];
+
+    attributes.forEach(attribute => {
+
+        if (!element.hasAttribute(attribute)) {
+            return;
         }
 
-        return value;
-    };
+        let stored =
+            originalAttributes.get(element);
 
+        if (!stored) {
+
+            stored = {};
+
+            originalAttributes.set(
+                element,
+                stored
+            );
+
+        }
+
+        if (
+            stored[attribute] === undefined
+        ) {
+
+            stored[attribute] =
+                element.getAttribute(
+                    attribute
+                );
+
+        }
+
+        const source =
+            stored[attribute];
+
+        if (!source) {
+            return;
+        }
+
+        element.setAttribute(
+            attribute,
+            getTranslation(
+                source,
+                lang
+            )
+        );
+
+    });
+
+}
+
+
+/* ============================================================
+   TRANSLATE A ROOT ELEMENT
+   ============================================================ */
+
+function translateRoot(root, lang) {
+
+    if (!root) {
+        return;
+    }
+
+    if (root.nodeType === Node.TEXT_NODE) {
+
+        translateTextNode(
+            root,
+            lang
+        );
+
+        return;
+    }
+
+
+    if (root.nodeType !== Node.ELEMENT_NODE) {
+        return;
+    }
+
+
+    translateElementAttributes(
+        root,
+        lang
+    );
+
+
+    /*
+     * TreeWalker is used only inside the supplied root.
+     * This avoids repeatedly scanning the entire document when
+     * a single dynamic element is inserted.
+     */
 
     const walker =
         document.createTreeWalker(
-            document.body,
+            root,
             NodeFilter.SHOW_TEXT
         );
-
 
     const nodes = [];
 
     let node;
 
+    while (
+        (node = walker.nextNode())
+    ) {
 
-    while (node = walker.nextNode()) {
         nodes.push(node);
+
     }
 
 
-    nodes.forEach((n) => {
+    nodes.forEach(textNode => {
 
-        if (
-            n.parentElement &&
-            ["SCRIPT", "STYLE"].includes(
-                n.parentElement.tagName
-            )
-        ) {
-            return;
-        }
-
-
-        const original =
-            n.nodeValue;
-
-        const translated =
-            translateValue(original);
-
-
-        if (translated !== original) {
-            n.nodeValue = translated;
-        }
+        translateTextNode(
+            textNode,
+            lang
+        );
 
     });
 
 
-    document
-        .querySelectorAll(
-            "[placeholder],[title],[aria-label]"
-        )
-        .forEach((el) => {
-
-            [
-                "placeholder",
-                "title",
-                "aria-label"
-            ].forEach((attr) => {
-
-                const value =
-                    el.getAttribute(attr);
-
-                if (!value) return;
-
-
-                const translated =
-                    dict[value] || value;
-
-
-                if (translated !== value) {
-                    el.setAttribute(
-                        attr,
-                        translated
-                    );
-                }
-
-            });
-
-        });
-
-
-    document
-        .querySelectorAll("option")
-        .forEach((el) => {
-
-            const original =
-                el.textContent;
-
-            const translated =
-                translateValue(original);
-
-
-            if (translated !== original) {
-                el.textContent = translated;
-            }
-
-        });
+    /*
+     * <option> elements can be dynamically changed through
+     * textContent, so they are naturally covered by the
+     * TreeWalker above.
+     */
 
 }
 
 
-const languageText = {
+/* ============================================================
+   TRANSLATE COMPLETE PAGE
+   ============================================================ */
 
-    en: {
-        dashboard:"Dashboard",
-        equipment:"Equipment",
-        sensors:"Sensors",
-        maintenance:"Maintenance",
-        history:"History",
-        dark:"Dark Mode",
-        light:"Light Mode",
-        logout:"Logout"
-    },
+function translateContent() {
 
-    my: {
-        dashboard:"ဒက်ရှ်ဘုတ်",
-        equipment:"ပစ္စည်းများ",
-        sensors:"ဆင်ဆာများ",
-        maintenance:"ပြုပြင်ထိန်းသိမ်းမှု",
-        history:"မှတ်တမ်း",
-        dark:"အမှောင်မုဒ်",
-        light:"အလင်းမုဒ်",
-        logout:"ထွက်မည်"
-    },
+    const lang =
+        getCurrentLanguage();
 
-    it: {
-        dashboard:"Dashboard",
-        equipment:"Attrezzatura",
-        sensors:"Sensori",
-        maintenance:"Manutenzione",
-        history:"Cronologia",
-        dark:"Modalità scura",
-        light:"Modalità chiara",
-        logout:"Esci"
-    }
+    translateRoot(
+        document.body,
+        lang
+    );
 
-};
+}
 
+
+/* ============================================================
+   TRANSLATE ONLY NEWLY ADDED CONTENT
+   ============================================================ */
+
+function translateAddedContent(
+    mutations
+) {
+
+    const lang =
+        getCurrentLanguage();
+
+    const roots = [];
+
+    mutations.forEach(mutation => {
+
+        mutation.addedNodes.forEach(node => {
+
+            if (
+                node.nodeType === Node.ELEMENT_NODE ||
+                node.nodeType === Node.TEXT_NODE
+            ) {
+
+                roots.push(node);
+
+            }
+
+        });
+
+    });
+
+
+    roots.forEach(root => {
+
+        translateRoot(
+            root,
+            lang
+        );
+
+    });
+
+}
+
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
 
 function toggleDarkMode() {
 
@@ -1279,7 +1787,9 @@ function toggleDarkMode() {
 
     localStorage.setItem(
         "smartBuildingDarkMode",
-        enabled ? "true" : "false"
+        enabled
+            ? "true"
+            : "false"
     );
 
     updatePreferences();
@@ -1287,99 +1797,71 @@ function toggleDarkMode() {
 }
 
 
- function toggleMobileNavigation() {
+/* ============================================================
+   MOBILE NAVIGATION
+   ============================================================ */
 
-        const dropdown =
-            document.getElementById(
-                "mobileNavigationDropdown"
-            );
+function toggleMobileNavigation() {
 
-        const button =
-            document.getElementById(
-                "mobileMenuButton"
-            );
-
-        if (!dropdown || !button) {
-            return;
-        }
-
-
-        const isHidden =
-            dropdown.classList.contains("hidden");
-
-
-        dropdown.classList.toggle(
-            "hidden",
-            !isHidden
+    const dropdown =
+        document.getElementById(
+            "mobileNavigationDropdown"
         );
 
-
-        button.setAttribute(
-            "aria-expanded",
-            String(isHidden)
+    const button =
+        document.getElementById(
+            "mobileMenuButton"
         );
 
+    if (!dropdown || !button) {
+        return;
     }
 
 
-    // Close the dropdown after selecting a navigation link
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
-
-            document
-                .querySelectorAll(".mobile-nav-link")
-                .forEach(link => {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            const dropdown =
-                                document.getElementById(
-                                    "mobileNavigationDropdown"
-                                );
-
-                            const button =
-                                document.getElementById(
-                                    "mobileMenuButton"
-                                );
+    const isHidden =
+        dropdown.classList.contains(
+            "hidden"
+        );
 
 
-                            if (dropdown) {
-                                dropdown.classList.add(
-                                    "hidden"
-                                );
-                            }
-
-
-                            if (button) {
-
-                                button.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-                            }
-
-                        }
-                    );
-
-                });
-
-        }
+    dropdown.classList.toggle(
+        "hidden",
+        !isHidden
     );
+
+
+    button.setAttribute(
+        "aria-expanded",
+        String(isHidden)
+    );
+
+}
+
+
+/* ============================================================
+   UPDATE LOGOS
+   ============================================================ */
 
 function updateLogo() {
 
     const logos = [
-        document.getElementById("sidebarLogo"),
-        document.getElementById("mobileLogo")
+
+        document.getElementById(
+            "sidebarLogo"
+        ),
+
+        document.getElementById(
+            "mobileLogo"
+        )
+
     ];
 
+
     const darkMode =
-        document.documentElement.classList.contains("dark");
+        document.documentElement.classList.contains(
+            "dark"
+        );
+
 
     logos.forEach(logo => {
 
@@ -1387,13 +1869,19 @@ function updateLogo() {
             return;
         }
 
-        logo.src = darkMode
-            ? logo.dataset.darkLogo
-            : logo.dataset.lightLogo;
+        logo.src =
+            darkMode
+                ? logo.dataset.darkLogo
+                : logo.dataset.lightLogo;
 
     });
 
 }
+
+
+/* ============================================================
+   UPDATE NAVIGATION / THEME UI
+   ============================================================ */
 
 function updatePreferences() {
 
@@ -1402,10 +1890,9 @@ function updatePreferences() {
             "dark"
         );
 
+
     const lang =
-        localStorage.getItem(
-            "smartBuildingLanguage"
-        ) || "en";
+        getCurrentLanguage();
 
 
     const t =
@@ -1435,7 +1922,6 @@ function updatePreferences() {
     }
 
 
-
     if (themeIcon) {
 
         themeIcon.innerHTML =
@@ -1452,75 +1938,97 @@ function updatePreferences() {
         .querySelectorAll(
             "[data-nav-key]"
         )
-        .forEach(el => {
+        .forEach(element => {
 
-            const k =
-                el.dataset.navKey;
+            const key =
+                element.dataset.navKey;
 
-            if (t[k]) {
-                el.textContent = t[k];
+            if (t[key]) {
+
+                element.textContent =
+                    t[key];
+
             }
 
         });
 
 
+    /*
+     * Keep the mobile navigation in the same language.
+     *
+     * Mobile links do not use data-nav-key because they are
+     * separate navigation elements.
+     */
+
+    const mobileNavigation =
+        document.querySelectorAll(
+            ".mobile-nav-link"
+        );
+
+
+    const mobileKeys = [
+        "dashboard",
+        "equipment",
+        "sensors",
+        "maintenance",
+        "history",
+        "logout"
+    ];
+
+
+    mobileNavigation.forEach(
+        (element, index) => {
+
+            if (
+                mobileKeys[index] &&
+                t[mobileKeys[index]]
+            ) {
+
+                element.textContent =
+                    t[mobileKeys[index]];
+
+            }
+
+        }
+    );
+
+
     updateLogo();
+
+    /*
+     * Translate normal page content after navigation/theme
+     * controls have been updated.
+     */
 
     translateContent();
 
 }
 
 
+/* ============================================================
+   LANGUAGE CHANGE
+   ============================================================ */
+
 function changeLanguage(lang) {
 
-    if (!languageText[lang]) {
+    if (
+        !languageText[lang]
+    ) {
+
         lang = "en";
+
     }
+
 
     localStorage.setItem(
         "smartBuildingLanguage",
         lang
     );
 
-    updatePreferences();
 
-    translateContent();
-
-}
-
-
-const translationObserver =
-    new MutationObserver((mutations) => {
-
-        const hasNewContent =
-            mutations.some(
-                mutation =>
-                    mutation.addedNodes.length > 0
-            );
-
-        if (!hasNewContent) return;
-
-        translateContent();
-
-    });
-
-
-translationObserver.observe(
-    document.body,
-    {
-        childList: true,
-        subtree: true
-    }
-);
-
-
-(function() {
-
-    const lang =
-        localStorage.getItem(
-            "smartBuildingLanguage"
-        ) || "en";
-
+    /*
+     * Keep the selector visually synchronized immediately.
+     */
 
     const selector =
         document.getElementById(
@@ -1529,17 +2037,163 @@ translationObserver.observe(
 
 
     if (selector) {
-        selector.value = lang;
+
+        selector.value =
+            lang;
+
     }
 
 
+    /*
+     * Update navigation, theme text and page content once.
+     */
+
     updatePreferences();
 
-    updateLogo();
+}
 
-    translateContent();
 
-})();
+/* ============================================================
+   MUTATION OBSERVER
+   ============================================================
+
+   IMPORTANT:
+
+   The previous implementation called translateContent()
+   whenever anything was added to the DOM.
+
+   Translation itself can create DOM mutations, which can cause
+   repeated translation passes.
+
+   The new observer only translates genuinely added content and
+   never performs a complete page scan.
+   ============================================================ */
+
+const translationObserver =
+    new MutationObserver(
+        function(mutations) {
+
+            const hasNewContent =
+                mutations.some(
+                    mutation =>
+                        mutation.addedNodes &&
+                        mutation.addedNodes.length > 0
+                );
+
+
+            if (!hasNewContent) {
+                return;
+            }
+
+
+            translateAddedContent(
+                mutations
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   INITIAL PAGE SETUP
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        /* -----------------------------------------------
+           Language selector
+           ----------------------------------------------- */
+
+        const selector =
+            document.getElementById(
+                "languageSelector"
+            );
+
+
+        const currentLanguage =
+            getCurrentLanguage();
+
+
+        if (selector) {
+
+            selector.value =
+                currentLanguage;
+
+        }
+
+
+        /* -----------------------------------------------
+           Mobile navigation links
+           ----------------------------------------------- */
+
+        document
+            .querySelectorAll(
+                ".mobile-nav-link"
+            )
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    function() {
+
+                        const dropdown =
+                            document.getElementById(
+                                "mobileNavigationDropdown"
+                            );
+
+                        const button =
+                            document.getElementById(
+                                "mobileMenuButton"
+                            );
+
+
+                        if (dropdown) {
+
+                            dropdown.classList.add(
+                                "hidden"
+                            );
+
+                        }
+
+
+                        if (button) {
+
+                            button.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* -----------------------------------------------
+           Start observing dynamic content
+           ----------------------------------------------- */
+
+        translationObserver.observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+
+
+        /* -----------------------------------------------
+           Initial preferences
+           ----------------------------------------------- */
+
+        updatePreferences();
+
+    }
+);
 
 </script>
 
